@@ -38,6 +38,7 @@ let mapleader=","
 if filereadable(expand("~/.vim/plug.vim"))
   source ~/.vim/plug.vim
 endif
+au BufNewFile,BufRead *.vundle set filetype=vim
 
 " ================ Turn Off Swap Files ==============
 
