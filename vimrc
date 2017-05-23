@@ -77,7 +77,9 @@ set list listchars=tab:\ \ ,trail:·
 
 "set nowrap       "Don't wrap lines
 set wrap       "Default wrap
-let &colorcolumn=join(range(81,999),",")
+let &colorcolumn=join(range(161,999),",")
+" let &colorcolumn=join(range(81,999),",")
+" let &colorcolumn="161,".join(range(600,999), ",")
 
 set linebreak    "Wrap lines at convenient points
 
