@@ -17,3 +17,6 @@ PATH=$HOME/bin:$PATH
 export PATH
 fpath=(~/.zsh/completion $fpath)
 #autoload -Uz compinit && compinit -i # is it necessary here?
+
+export NVM_DIR="/Users/wesson.yi/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
