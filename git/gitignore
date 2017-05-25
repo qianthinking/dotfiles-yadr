@@ -50,3 +50,6 @@ Session.vim
 .powenv
 public/api-docs.json
 public/api/
+
+# tmux the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+_darcs
