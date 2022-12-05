@@ -8,7 +8,7 @@
 "Plug 'artur-shaik/vim-javacomplete2'
 "Plug 'qianthinking/vim-android'
 "Plug 'mattn/emmet-vim'
-"Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'jtratner/vim-flavored-markdown'
 "use ALE instead
 "Plug 'scrooloose/syntastic'
