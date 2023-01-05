@@ -35,10 +35,12 @@ Plug 'Shougo/vimproc.vim'
 "Plug 'Shougo/vimshell.vim'
 "Plug 'benmills/vimux'
 Plug 'Yggdroot/indentLine'
-Plug 'tpope/vim-obsession'
-Plug 'dhruvasagar/vim-prosession'
+Plug 'tpope/vim-obsession', Cond(!exists('g:vscode'))
+Plug 'dhruvasagar/vim-prosession', Cond(!exists('g:vscode'))
 "Plug 'janko-m/vim-test'
 Plug 'ybian/smartim'
 Plug 'ojroques/vim-oscyank'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mtdl9/vim-log-highlighting'
+Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
+
