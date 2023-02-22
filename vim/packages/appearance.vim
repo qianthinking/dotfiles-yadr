@@ -22,4 +22,4 @@ Plug 'chriskempson/base16-vim'
 "Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 "Plug 'w0ng/vim-hybrid'
 Plug 'micke/vim-hybrid'
-
+Plug 'GutenYe/json5.vim'
