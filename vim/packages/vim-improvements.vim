@@ -22,7 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 "Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 "Plug 'vim-scripts/lastpos.vim'
 Plug 'vim-scripts/sudo.vim'
 "Plug 'goldfeld/ctrlr.vim'
