@@ -5,7 +5,8 @@ Plug 'nelstrom/vim-visual-star-search'
 "Gsearch then %s/old/new/g then Greplace then wa
 Plug 'skwp/greplace.vim'
 "try vim-sneak
-Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim'
+"Plug 'easymotion/vim-easymotion'
 " use easymotion for now
 "Plug "justinmk/vim-sneak"
 "Dash, doc search, my map: <leader>sd

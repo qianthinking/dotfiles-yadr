@@ -160,6 +160,9 @@ let vimsettings = '~/.vim/settings'
 for fpath in split(globpath(vimsettings, '*.vim'), '\n')
   exe 'source' fpath
 endfor
+for fpath in split(globpath(vimsettings, '*.lua'), '\n')
+  exe 'source' fpath
+endfor
 
 " ================ Coc Settings Begin ========================
 " Some servers have issues with backup files, see #649
@@ -282,11 +285,11 @@ nnoremap <silent> <c-o> :BufSurfBack<CR>
 let g:enable_bold_font = 0
 let g:enable_italic_font = 1
 
+colorscheme hybrid
 " use term bg color(black) to fix the bracket color in the float window
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
-colorscheme hybrid
-"let g:lightline.colorscheme='material'
+let g:lightline.colorscheme='material'
 
 hi! CursorLine guibg=#263238 ctermbg=234
 hi! CocErrorSign guifg=#f43753 ctermfg=201 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE

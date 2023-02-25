@@ -10,8 +10,16 @@ function! GetVisual()
   return selection
 endfunction
 
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fr <cmd>Telescope resume<cr>
+
 "grep the current word using K (mnemonic Kurrent)
-nnoremap <silent> K :Ag <cword><CR>
+nnoremap <silent> K <cmd>Telescope grep_string<cr>
+"nnoremap <silent> K :Ag <cword><CR>
 
 "grep visual selection
 vnoremap K :<C-U>execute "Ag " . GetVisual()<CR>
@@ -28,3 +36,5 @@ nnoremap ,gg :Ag ""<left>
 
 "Grep for usages of the current file
 nnoremap ,gcf :exec "Ag " . expand("%:t:r")<CR>
+
+

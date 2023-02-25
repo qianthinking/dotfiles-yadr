@@ -1,7 +1,7 @@
-nnoremap <silent> <leader>tg :GitGutterLineHighlightsToggle<CR>
-nnoremap <silent> <leader>tn :NERDTreeToggle<CR>
-nnoremap <silent> <leader>tt :TagbarToggle<CR>
-nnoremap <silent> <leader>ti :IndentLinesToggle<CR>
-nnoremap <silent> <leader>tl :ALEToggle<CR>
-nnoremap <silent> <leader>tu :GundoToggle<CR>
+nnoremap <silent> tg :GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> tn :NvimTreeToggle<CR>
+nnoremap <silent> tt :TagbarToggle<CR>
+nnoremap <silent> ti :IndentLinesToggle<CR>
+nnoremap <silent> tl :ALEToggle<CR>
+nnoremap <silent> tu :GundoToggle<CR>
 

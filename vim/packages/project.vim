@@ -1,11 +1,16 @@
 "Plug 'scrooloose/nerdtree'
 Plug 'preservim/nerdtree'
+Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'jistr/vim-nerdtree-tabs'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+
 " jump between buffers with visited order
 Plug 'qianthinking/vim-bufsurf'
-Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 " we should use ctrlp find in buffer
