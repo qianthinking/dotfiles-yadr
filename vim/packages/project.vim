@@ -8,6 +8,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'fannheyward/telescope-coc.nvim'
 
 " jump between buffers with visited order
 Plug 'qianthinking/vim-bufsurf'

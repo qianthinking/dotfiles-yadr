@@ -64,7 +64,14 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    custom = {
+      "node_modules",
+      "package-lock.json",
+      "yarn.lock",
+      "__pycache__",
+      "venv"
+    },
+    dotfiles = true
   },
   open_on_tab = true,
   remove_keymaps = {"<", ">"},
@@ -75,6 +82,5 @@ local function open_nvim_tree()
   require("nvim-tree.api").tree.open()
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-
-
-
+vim.api.nvim_set_keymap("n", "tn", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<C-\\>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})

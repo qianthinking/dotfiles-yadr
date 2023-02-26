@@ -4,14 +4,19 @@
   "suggest.noselect": false,
   "suggest.minTriggerInputLength": 2,
   "suggest.detailField":"abbr",
-  "suggest.enablePreview": false,
+  "outline.autoPreview": true,
+  "outline.expandLevel": 0,
   "suggest.snippetIndicator": "🌟",
   "suggest.triggerCompletionWait": 50,
   "coc.preferences.formatOnType": false,
-  "codeLens.enable": false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "codeLens.enable": true,
   "diagnostic.errorSign": "✘",
   "diagnostic.virtualText": true,
   "python.pythonPath": "~/bin/vimpython",
+  "python.formatting.provider": "black",
+  "python.formatting.yapfPath": "~/bin/vimyapf",
+  "python.formatting.blackPath": "~/bin/vimblack",
   "pyright.enable": true,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
@@ -26,7 +31,5 @@
       }
     }
   },
-  "prettier.disableSuccessMessage": true,
   "git.enableGutters": true,
-  "java.errors.incompleteClasspath.severity": "ignore"
 }
