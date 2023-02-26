@@ -50,6 +50,9 @@ vim.opt.termguicolors = true
 local list = {
     { key = "u", action = "dir_up" },
     { key = "C", action = "cd" },
+    { key = "S", action = "system_open" },
+    { key = "s", action = "split" },
+    { key = "v", action = "vsplit" },
 }
 -- OR setup with some options
 require("nvim-tree").setup({
