@@ -163,16 +163,16 @@ nmap <leader>fs  <Plug>(coc-format-selected)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap keys for gotos
-" nmap <silent> gd <Plug>(coc-definition)
+ nmap <silent> gd <Plug>(coc-definition)
 " nmap <silent> gy <Plug>(coc-type-definition)
 " nmap <silent> gi <Plug>(coc-implementation)
 " nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> gd :Telescope coc definitions<CR>
-nnoremap <silent> gy :Telescope coc type_definitions<CR>
-nnoremap <silent> gi :Telescope coc implementations<CR>
-nnoremap <silent> gr :Telescope coc references<CR>
-nnoremap <silent> fd :Telescope coc document_symbols<CR>
+nnoremap <silent> ft :Telescope coc type_definitions<CR>
+nnoremap <silent> fi :Telescope coc implementations<CR>
+nnoremap <silent> fr :Telescope coc references<CR>
+nnoremap <silent> fd :Telescope coc definitions<CR>
+nnoremap <silent> fs :Telescope coc document_symbols<CR>
 nnoremap <silent> fw :Telescope coc workspace_symbols<CR>
 
 " Introduce function text object
