@@ -52,7 +52,7 @@ local list = {
     { key = "C", action = "cd" },
     { key = "S", action = "system_open" },
     { key = "s", action = "split" },
-    { key = "v", action = "vsplit" },
+    { key = "i", action = "vsplit" },
 }
 -- OR setup with some options
 require("nvim-tree").setup({
