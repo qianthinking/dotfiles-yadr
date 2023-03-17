@@ -23,3 +23,4 @@ Plug 'chriskempson/base16-vim'
 "Plug 'w0ng/vim-hybrid'
 Plug 'micke/vim-hybrid'
 Plug 'GutenYe/json5.vim'
+Plug 'MunifTanjim/nui.nvim' "ui for nvim, dependency for ChatGPT
