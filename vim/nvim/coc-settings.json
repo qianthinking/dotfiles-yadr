@@ -14,6 +14,7 @@
   "diagnostic.errorSign": "✘",
   "diagnostic.virtualText": true,
   "python.pythonPath": "~/bin/vimpython",
+  "python.venvPath": "~/miniforge3/envs/neovim",
   "python.formatting.provider": "black",
   "python.formatting.yapfPath": "~/bin/vimyapf",
   "python.formatting.blackPath": "~/bin/vimblack",
@@ -31,5 +32,5 @@
       }
     }
   },
-  "git.enableGutters": true,
+  "git.enableGutters": true
 }
