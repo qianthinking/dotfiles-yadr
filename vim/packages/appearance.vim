@@ -1,5 +1,6 @@
 " visual color value with background color
-Plug 'chrisbra/color_highlight'
+" Plug 'chrisbra/color_highlight'
+Plug 'ap/vim-css-color'
 " theme
 "Plug 'skwp/vim-colors-solarized'
 Plug 'lifepillar/vim-solarized8'
