@@ -1,7 +1,5 @@
-" ========================================
 " General vim sanity improvements
 " ========================================
-"
 "
 " alias yw to yank the entire word 'yank inner word'
 " even if the cursor is halfway inside the word
@@ -137,6 +135,7 @@ nnoremap _ <C-w>5-
 nnoremap <silent> ,cf :let @* = expand("%:~")<CR>
 nnoremap <silent> ,cr :let @* = expand("%")<CR>
 nnoremap <silent> ,cn :let @* = expand("%:t")<CR>
+nnoremap <silent> ,c<space> :%s/\s\+$//e<CR>
 
 "Clear current search highlight by double tapping //
 nmap <silent> // :nohlsearch<CR>

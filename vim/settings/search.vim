@@ -17,7 +17,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 "grep the current word using K (mnemonic Kurrent)
-nnoremap <silent> K <cmd>Telescope grep_string<cr>
+nnoremap <silent> K :Ag <cword><CR>
 "nnoremap <silent> K :Ag <cword><CR>
 
 "grep visual selection
