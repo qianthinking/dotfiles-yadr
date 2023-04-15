@@ -4,6 +4,7 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-sh',
   \ 'coc-json',
+  \ 'coc-java',
   \ 'coc-html',
   \ 'coc-vimlsp',
   \ 'coc-highlight',
