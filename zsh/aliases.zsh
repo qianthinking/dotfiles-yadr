@@ -156,10 +156,12 @@ alias cl='clear'
 # Zippin
 alias gz='tar -zcvf'
 
+alias c='chatgpt -p'
+
 # Ruby
-alias c='rails c' # Rails 3
-alias co='script/console' # Rails 2
-alias cod='script/console --debugger'
+#alias c='rails c' # Rails 3
+#alias co='script/console' # Rails 2
+#alias cod='script/console --debugger'
 
 #If you want your thin to listen on a port for local VM development
 #export VM_IP=10.0.0.1 <-- your vm ip
