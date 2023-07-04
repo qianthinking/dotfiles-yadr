@@ -70,6 +70,7 @@ endif
 
 " ================ General Config ====================
 set number                      "Line numbers are good
+set relativenumber              "Relative Line numbers are good
 set gcr=a:blinkon0              "Disable cursor blink
 
 " This makes vim act like all other editors, buffers can
