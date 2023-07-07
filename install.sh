@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ ! -d "$HOME/.yadr" ]; then
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
       if [ -n "$(command -v yum)" ]; then
