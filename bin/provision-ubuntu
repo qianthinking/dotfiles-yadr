@@ -1,13 +1,19 @@
 #!/bin/bash
-usage() { echo "Usage: $0 -u <user> -k <key_file>" 1>&2; exit 1; }
+usage() { echo "Usage: $0 -u <user> -k <key_file> [-d <home_dir>] [-i <UID>]" 1>&2; exit 1; }
 
-while getopts ":u:k:" o; do
+while getopts ":u:k:d:i:" o; do
   case "${o}" in
     u)
       NEW_USER=${OPTARG}
       ;;
     k)
       KEY_FILE=${OPTARG}
+      ;;
+    d)
+      HOME_DIR=${OPTARG}
+      ;;
+    i)
+      THE_UID=${OPTARG}
       ;;
     *)
       usage
@@ -23,17 +29,29 @@ apt update
 apt install -y git zsh curl wget sudo
 # install neovim
 apt install -y software-properties-common
-add-apt-repository ppa:neovim-ppa/stable
+add-apt-repository ppa:neovim-ppa/unstable
 apt update
 apt install -y neovim
-# install tmux 3.2a
+# install tmux 3.3a
 apt install -y libevent-dev ncurses-dev build-essential bison pkg-config
-curl -Lo /tmp/tmux.tar.gz https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz
+curl -Lo /tmp/tmux.tar.gz https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz
 tar xzf /tmp/tmux.tar.gz -C /tmp
-cd /tmp/tmux-3.2a
+cd /tmp/tmux-3.3a
 ./configure && make
-sudo make install
-grep $NEW_USER /etc/passwd 2>/dev/null || useradd -m -s /bin/zsh $NEW_USER
+make install
+if [ -n "$HOME_DIR" ]
+then
+  home_args="-d $HOME_DIR"
+else
+  home_args=""
+fi
+if [ -n "$THE_UID" ]
+then
+  uid_args="-u $THE_UID"
+else
+  uid_args=""
+fi
+grep $NEW_USER /etc/passwd 2>/dev/null || useradd -m -s /bin/zsh $NEW_USER $home_args $uid_args
 grep $NEW_USER /etc/sudoers 2>/dev/null || echo "$NEW_USER ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 sudo -i -u $NEW_USER bash << EOF
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -42,3 +60,9 @@ sudo -i -u $NEW_USER bash << EOF
 EOF
 groupadd docker
 usermod -aG docker $NEW_USER
+sudo apt purge nodejs
+sudo apt autoremove
+sudo apt update
+sudo apt install -y curl
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install nodejs build-essential -y

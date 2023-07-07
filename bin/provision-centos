@@ -27,11 +27,11 @@ curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfraclou
 yum -y install neovim
 # install tmux 3.2a
 yum -y install libevent-devel ncurses-devel gcc make bison pkg-config
-curl -Lo /tmp/tmux.tar.gz https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz
+curl -Lo /tmp/tmux.tar.gz https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz
 tar xzf /tmp/tmux.tar.gz -C /tmp
-cd /tmp/tmux-3.2a
+cd /tmp/tmux-3.3a
 ./configure && make
-sudo make install
+make install
 grep $NEW_USER /etc/passwd 2>/dev/null || useradd -m -s /bin/zsh $NEW_USER
 grep $NEW_USER /etc/sudoers 2>/dev/null || echo "$NEW_USER ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 sudo -i -u $NEW_USER bash << EOF
