@@ -193,7 +193,8 @@ xmap <leader>fs  <Plug>(coc-format-selected)
 nmap <leader>fs  <Plug>(coc-format-selected)
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>we <Plug>(coc-workspace-edit)
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
