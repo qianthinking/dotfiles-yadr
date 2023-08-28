@@ -168,9 +168,6 @@ nnoremap ` '
 " Get the current highlight group. Useful for then remapping the color
 map ,hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
-" ,hp = html preview
-map <silent> ,hp :!open -a Safari %<CR><CR>
-
 nnoremap <C-t>c :tabnew<CR>
 nnoremap <C-t>e :tabe %<CR>
 nnoremap <C-t>h :tabprevious<CR>

@@ -24,3 +24,6 @@ Plug 'JazzCore/ctrlp-cmatcher'
 "Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'untitled-ai/jupyter_ascending.vim'
+"harpoon need
+Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
+Plug 'ThePrimeagen/harpoon'
