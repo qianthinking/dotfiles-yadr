@@ -6,7 +6,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'ivalkeen/vim-ctrlp-tjump'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'fannheyward/telescope-coc.nvim'
 
@@ -25,5 +24,4 @@ Plug 'JazzCore/ctrlp-cmatcher'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'untitled-ai/jupyter_ascending.vim'
 "harpoon need
-Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
 Plug 'ThePrimeagen/harpoon'

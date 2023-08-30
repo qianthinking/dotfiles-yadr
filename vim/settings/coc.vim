@@ -207,12 +207,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> ft :Telescope coc type_definitions<CR>
-nnoremap <silent> fi :Telescope coc implementations<CR>
-nnoremap <silent> fr :Telescope coc references<CR>
-nnoremap <silent> fd :Telescope coc definitions<CR>
-nnoremap <silent> fs :Telescope coc document_symbols<CR>
-nnoremap <silent> fw :Telescope coc workspace_symbols<CR>
+nnoremap <silent> ft <cmd>Telescope coc type_definitions<CR>
+nnoremap <silent> fi <cmd>Telescope coc implementations<CR>
+nnoremap <silent> fr <cmd>Telescope coc references<CR>
+nnoremap <silent> fd <cmd>Telescope coc definitions<CR>
+nnoremap <silent> fs <cmd>Telescope coc document_symbols<CR>
+nnoremap <silent> fw <cmd>Telescope coc workspace_symbols<CR>
 
 " default setting
 
