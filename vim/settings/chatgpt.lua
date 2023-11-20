@@ -22,3 +22,5 @@ vim.api.nvim_set_keymap("v", "<leader>cc", ":ChatGPTRun continue_code<CR>", {nor
 vim.api.nvim_set_keymap("v", "<leader>cm", ":ChatGPTRun complete_code<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>co", ":ChatGPTRun optimize_code<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>cb", ":ChatGPTRun fix_bugs<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("v", "<leader>ci", ":ChatGPTEditWithInstruction<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>ci", ":ChatGPTEditWithInstruction<CR>", {noremap = true, silent = true})
