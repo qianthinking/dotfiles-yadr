@@ -33,5 +33,6 @@
       }
     }
   },
-  "git.enableGutters": true
+  "git.enableGutters": true,
+  "java.import.gradle.java.home": "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
 }
