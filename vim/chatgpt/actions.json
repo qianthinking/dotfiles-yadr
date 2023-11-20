@@ -2,7 +2,7 @@
   "continue_code": {
     "type": "chat",
     "opts": {
-      "template": "continue and complete the following code. Don't explain, Don't include language label like ```python```, just output rest of code!\n\nExisting code:\n{{input}}",
+      "template": "continue and complete the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output rest of code!\n\nExisting code:\n{{input}}",
       "strategy": "append",
       "params": {
         "model": "gpt-4-1106-preview"
@@ -12,7 +12,7 @@
   "complete_code": {
     "type": "chat",
     "opts": {
-      "template": "Rewrite and complete the following code according #TODO comments. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nCompleted Code:\n",
+      "template": "Rewrite and complete the following code according #TODO comments. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nCompleted Code:\n",
       "strategy": "replace",
       "params": {
         "model": "gpt-4-1106-preview"
@@ -22,7 +22,7 @@
   "optimize_code": {
     "type": "chat",
     "opts": {
-      "template": "Optimize the following code. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
+      "template": "Optimize the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
       "strategy": "replace",
       "params": {
         "model": "gpt-4-1106-preview"
@@ -32,7 +32,7 @@
   "fix_bugs": {
     "type": "chat",
     "opts": {
-      "template": "Fix bugs of the following code. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
+      "template": "Fix bugs of the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
       "strategy": "replace",
       "params": {
         "model": "gpt-4-1106-preview"
