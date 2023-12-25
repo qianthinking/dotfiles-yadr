@@ -248,6 +248,3 @@ inoremap <c-l> <space>=><space>
 cnoremap <c-l> <space>=><space>
 inoremap <c-g> <space>-><space>
 cnoremap <c-g> <space>-><space>
-
-nnoremap <leader>1 <C-6>
-
