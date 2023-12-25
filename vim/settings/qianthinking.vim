@@ -86,6 +86,9 @@ au FileType gradle setlocal ts=2 sts=2 sw=2
 au BufWritePost *.coffee silent make! -b | cwindow | redraw!
 au BufNewFile,BufReadPost *.coffee setl sw=2 ts=2 sts=2 expandtab
 
+" Auto close tab if NERDTree is the only window left
+autocmd BufUnload * if winnr('$') == 1 && &filetype == 'NvimTree' | tabclose | endif
+
 au WinEnter * setlocal cursorline
 au WinLeave * setlocal nocursorline
 
