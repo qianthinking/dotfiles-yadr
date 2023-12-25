@@ -29,6 +29,16 @@
       }
     }
   },
+  "split_string": {
+    "type": "chat",
+    "opts": {
+      "template": "Split long string exceed 120 length in the following code into multi lines less 120, like 'abc' into (\n'a'\n'b'\n'c'\n), make each line not too short ASAP. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nUpdated Code:\n",
+      "strategy": "replace",
+      "params": {
+        "model": "gpt-4-1106-preview"
+      }
+    }
+  },
   "fix_bugs": {
     "type": "chat",
     "opts": {
