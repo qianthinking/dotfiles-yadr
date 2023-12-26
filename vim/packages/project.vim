@@ -10,7 +10,9 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'fannheyward/telescope-coc.nvim'
 
 " jump between buffers with visited order
-Plug 'qianthinking/vim-bufsurf'
+"Plug 'qianthinking/vim-bufsurf'
+Plug 'ton/vim-bufsurf'
+"Plug 'dhruvasagar/vim-buffer-history'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 " we should use ctrlp find in buffer
