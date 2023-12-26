@@ -17,4 +17,4 @@
 "Plug 'thinca/vim-textobj-function-javascript'
 "use targets
 "Plug 'vim-scripts/argtextobj.vim'
-"Plug 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
