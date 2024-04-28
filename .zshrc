@@ -52,6 +52,4 @@ profile_script_start "completion init"
 autoload -Uz compinit && compinit
 
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export HOSTNAME=$HOST
-
