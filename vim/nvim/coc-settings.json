@@ -33,5 +33,6 @@
     }
   },
   "git.enableGutters": true,
+  "imselect.defaultInput": "com.apple.keylayout.ABC",
   "snippets.ultisnips.pythonPrompt": false
 }
