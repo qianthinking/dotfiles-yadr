@@ -40,7 +40,7 @@ au BufNewFile,BufRead {Gemfile,Rakefile,Capfile,*.rake,config.ru} set ft=ruby
 au BufNewFile,BufRead *.gradle set filetype=groovy
 au BufNewFile,BufRead helmfile.yaml,*.gotmpl set ft=helm
 
-au FileType * setlocal textwidth=119
+" au FileType * setlocal textwidth=119
 " return previous editing position
 au BufReadPost *
             \ if line("'\"") > 1 && line("'\"") <= line("$") |
