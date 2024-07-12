@@ -19,9 +19,9 @@ test -s "${HOME}/.scm_breeze/scm_breeze.sh" && source "${HOME}/.scm_breeze/scm_b
 
 #test -s "${HOME}/.yadr/bin/aws_zsh_completer.sh" && source "$HOME/.yadr/bin/aws_zsh_completer.sh"
 
-profile_script_start "java"
-export JAVA_HOME=$(/usr/libexec/java_home -v1.17)
-export PATH=$HOMEBREW_PREFIX/opt/libpq/bin:$JAVA_HOME/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH
+# profile_script_start "java"
+# export JAVA_HOME=$(/usr/libexec/java_home -v1.17)
+# export PATH=$HOMEBREW_PREFIX/opt/libpq/bin:$JAVA_HOME/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 
 test -d "$HOMEBREW_PREFIX/opt/openssl@1.1" && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$HOMEBREW_PREFIX/opt/openssl@1.1"
 profile_script_start "end"
