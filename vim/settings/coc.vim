@@ -126,8 +126,8 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 nmap <leader>or :CocCommand python.sortImports<CR>
-nmap <leader>of :Autoformat<CR>
-vmap <leader>of :Autoformat<CR>
+nmap <leader>of :call CocActionAsync('format')<CR>
+vmap <leader>of <Plug>(coc-format-selected)
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
