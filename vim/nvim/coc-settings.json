@@ -15,7 +15,7 @@
   "diagnostic.virtualText": true,
   "python.pythonPath": "~/bin/vimpython",
   "python.venvPath": "~/condalink/envs/neovim",
-  "python.formatting.provider": "ruff",
+  "python.formatting.provider": "black",
   "pyright.organizeimports.provider": "ruff",
   "pyright.enable": true,
   "python.linting.enabled": true,
