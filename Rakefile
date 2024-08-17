@@ -42,14 +42,14 @@ task :install => [:submodule_init, :submodules] do
   run_bundle_config
   if want_to_install?('vim configuration (highly recommended)')
     install_files(Dir.glob('{vim,vimrc}'))
-    has_nvim = File.exists?(File.join(ENV['HOME'], ".config", 'nvim'))
+    has_nvim = File.exist?(File.join(ENV['HOME'], ".config", 'nvim'))
     if has_nvim
       run %{mv ~/.config/nvim ~/.config/nvim.#{Time.now.to_i}}
       puts "Your nvim config was moved to ~/.config/nvim.#{Time.now.to_i}"
     end
     run %{ mkdir -p ~/.config && ln -nfs #{ENV["PWD"]}/vim/nvim ~/.config/}
     Rake::Task["install_plug"].execute
-    #has_ycm = File.exists?(File.join(ENV['HOME'], ".vim", 'bundle', 'YouCompleteMe'))
+    #has_ycm = File.exist?(File.join(ENV['HOME'], ".vim", 'bundle', 'YouCompleteMe'))
     #Rake::Task["compile_ycm"].execute unless has_ycm
   end
 
@@ -125,7 +125,7 @@ task :install_plug do
   plug_path = File.join('vim','autoload', 'plug.vim')
   max_retry_times = 5
   retry_times = 0
-  while !File.exists?(plug_path) && retry_times < max_retry_times
+  while !File.exist?(plug_path) && retry_times < max_retry_times
     system "curl -fLo #{plug_path} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     sleep 1
     puts "retry #{retry_times} install plug.vim"
@@ -266,7 +266,7 @@ def install_term_theme
   run %{ /usr/libexec/PlistBuddy -c "Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'" ~/Library/Preferences/com.googlecode.iterm2.plist }
 
   # If iTerm2 is not installed or has never run, we can't autoinstall the profile since the plist is not there
-  if !File.exists?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
+  if !File.exist?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
     puts "======================================================"
     puts "To make sure your profile is using the solarized theme"
     puts "Please check your settings under:"
@@ -350,8 +350,8 @@ def install_prezto
   else
     puts "Setting zsh as your default shell"
     zsh_path = "#{ENV["HOMEBREW_PREFIX"]}/bin/zsh"
-    if File.exists?(zsh_path)
-      if File.exists?("/private/etc/shells") && File.readlines("/private/etc/shells").grep(zsh_path).empty?
+    if File.exist?(zsh_path)
+      if File.exist?("/private/etc/shells") && File.readlines("/private/etc/shells").grep(zsh_path).empty?
         puts "Adding zsh to standard shell list"
         run %{ echo "#{zsh_path}" | sudo tee -a /private/etc/shells }
       end
@@ -391,7 +391,7 @@ def install_files(files, method = :symlink)
     puts "Source: #{source}"
     puts "Target: #{target}"
 
-    if File.exists?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
+    if File.exist?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
       puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
       run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
     end
