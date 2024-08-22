@@ -1,5 +1,4 @@
-local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
+local actions = require('telescope.actions') local action_state = require('telescope.actions.state')
 
 local function open_or_switch_to_file(prompt_bufnr)
     local selected_entry = action_state.get_selected_entry()
@@ -16,24 +15,33 @@ local function open_or_switch_to_file(prompt_bufnr)
         file_to_open = selected_entry.value
     end
 
-    -- Check if the file is already open in a tab
-    for tab = 1, vim.fn.tabpagenr('$') do
-        for _, bufnr in ipairs(vim.fn.tabpagebuflist(tab)) do
-            if vim.fn.bufname(bufnr) == file_to_open then
-                vim.cmd(tab .. 'tabnext')
-                vim.cmd('buffer ' .. bufnr)
-                if line_nr then
-                    vim.api.nvim_win_set_cursor(0, {line_nr, 0})
-                end
-                return
-            end
-        end
-    end
+    -- Check if file_to_open is nil
+    if file_to_open then
+      -- Check if the file is already open in a tab
+      for tab = 1, vim.fn.tabpagenr('$') do
+          for _, bufnr in ipairs(vim.fn.tabpagebuflist(tab)) do
+              if vim.fn.bufname(bufnr) == file_to_open then
+                  vim.cmd(tab .. 'tabnext')
+                  vim.cmd('buffer ' .. bufnr)
+                  if line_nr then
+                      vim.api.nvim_win_set_cursor(0, {line_nr, 0})
+                  end
+                  return
+              end
+          end
+      end
 
-    -- Open the file in the current tab if it's not already open
-    vim.cmd('edit ' .. file_to_open)
-    if line_nr then
-        vim.api.nvim_win_set_cursor(0, {line_nr, 0})
+      -- Open the file in the current tab if it's not already open
+      vim.cmd('edit ' .. file_to_open)
+      if line_nr then
+          vim.api.nvim_win_set_cursor(0, {line_nr, 0})
+      end
+    else
+      if selected_entry.value.name then
+        vim.fn.feedkeys(':' .. selected_entry.value.name)
+      else
+        vim.notify(vim.inspect(selected_entry.value))
+      end
     end
 end
 
