@@ -31,7 +31,7 @@ Plug 'vim-scripts/sudo.vim'
 "Plug 'liuchengxu/vista.vim'
 "execute whole/part of editing file, map: <F5>
 "Plug 'thinca/vim-quickrun'
-Plug 'Shougo/vimproc.vim'
+"Plug 'Shougo/vimproc.vim'
 "Plug 'Shougo/vimshell.vim'
 "Plug 'benmills/vimux'
 Plug 'Yggdroot/indentLine'
@@ -39,8 +39,8 @@ Plug 'tpope/vim-obsession', Cond(!exists('g:vscode'))
 Plug 'dhruvasagar/vim-prosession', Cond(!exists('g:vscode'))
 "Plug 'janko-m/vim-test'
 Plug 'ybian/smartim'
-Plug 'ojroques/vim-oscyank', { 'tag': 'v1.0.0' }
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mtdl9/vim-log-highlighting'
 Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
 Plug 'nvim-lua/plenary.nvim' "async for nvim, dependency for ChatGPT

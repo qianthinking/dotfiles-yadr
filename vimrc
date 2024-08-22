@@ -171,23 +171,23 @@ else
     let g:enable_bold_font = 0
     let g:enable_italic_font = 1
 
-    colorscheme hybrid
+    " colorscheme hybrid
     " use term bg color(black) to fix the bracket color in the float window
-    let g:hybrid_custom_term_colors = 1
-    let g:hybrid_reduced_contrast = 1
-    let g:lightline.colorscheme='material'
+    " let g:hybrid_custom_term_colors = 1
+    " let g:hybrid_reduced_contrast = 1
+    " let g:lightline.colorscheme='material'
 
-    hi! CursorLine guibg=#263238 ctermbg=234
-    hi! CocErrorSign guifg=#f43753 ctermfg=201 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-    hi! CocWarningSign guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-    hi! CocHintSign guifg=#224466 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-    hi! CocInfoSign guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-    hi! VertSplit guifg=#405070
+    " hi! CursorLine guibg=#263238 ctermbg=234
+    " hi! CocErrorSign guifg=#f43753 ctermfg=201 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    " hi! CocWarningSign guifg=#d3b987 ctermfg=180 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    " hi! CocHintSign guifg=#224466 ctermfg=81 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    " hi! CocInfoSign guifg=#ffc24b ctermfg=215 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    " hi! VertSplit guifg=#405070
 
 
 
     " Change Color when entering Insert Mode
-    autocmd InsertEnter * highlight CursorLine guibg=black ctermbg=black
+    " autocmd InsertEnter * highlight CursorLine guibg=black ctermbg=black
     " Revert Color to default when leaving Insert Mode
-    autocmd InsertLeave * highlight CursorLine guibg=#263238 ctermbg=234
+    " autocmd InsertLeave * highlight CursorLine guibg=#263238 ctermbg=234
 endif

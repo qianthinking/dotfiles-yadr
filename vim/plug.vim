@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/bundle')
 if exists('g:vscode')
 else
-  source ~/.yadr/vim/packages/ruby.vim
+  "source ~/.yadr/vim/packages/ruby.vim
   source ~/.yadr/vim/packages/languages.vim
   source ~/.yadr/vim/packages/git.vim
   source ~/.yadr/vim/packages/appearance.vim

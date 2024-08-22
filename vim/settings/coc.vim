@@ -127,6 +127,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 nmap <leader>or :CocCommand python.sortImports<CR>
 nmap <leader>of :call CocActionAsync('format')<CR>
+xmap <leader>of <Plug>(coc-format-selected)
 vmap <leader>of <Plug>(coc-format-selected)
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
@@ -190,10 +191,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " conflict with coc 0.0.82+
 "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Remap for format selected region
-xmap <leader>fs  <Plug>(coc-format-selected)
-nmap <leader>fs  <Plug>(coc-format-selected)
 
 " Remap for rename current word
 nmap <silent> <leader>rn <Plug>(coc-rename)

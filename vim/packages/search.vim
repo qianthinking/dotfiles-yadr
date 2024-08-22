@@ -10,4 +10,4 @@ Plug 'phaazon/hop.nvim'
 " use easymotion for now
 "Plug "justinmk/vim-sneak"
 "Dash, doc search, my map: <leader>sd
-Plug 'rizzatti/dash.vim'
+" Plug 'rizzatti/dash.vim'

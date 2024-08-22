@@ -20,10 +20,10 @@ Plug 'skwp/vim-html-escape'
 Plug 'tfnico/vim-gradle'
 "Plug 'fatih/vim-go'
 "Ember.js
-Plug 'AndrewRadev/ember_tools.vim'
+" Plug 'AndrewRadev/ember_tools.vim'
 "Typescript syntax
 Plug 'leafgarland/typescript-vim'
-Plug 'joukevandermaas/vim-ember-hbs'
+" Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'chemzqm/wxapp.vim'
 Plug 'towolf/vim-helm'
 Plug 'Joorem/vim-haproxy'

@@ -1,16 +1,16 @@
 " visual color value with background color
 " Plug 'chrisbra/color_highlight'
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
 " theme
 "Plug 'skwp/vim-colors-solarized'
-Plug 'lifepillar/vim-solarized8'
+"Plug 'lifepillar/vim-solarized8'
 " statusline
 Plug 'itchyny/lightline.vim'
 " highlight .tmux.conf not compatible with new tmux
 "Plug 'jby/tmux.vim'
 " theme like solarized
-Plug 'morhetz/gruvbox'
-Plug 'chriskempson/base16-vim'
+" Plug 'morhetz/gruvbox'
+" Plug 'chriskempson/base16-vim'
 
 "colorscheme hybrid
 "Plug 'kristijanhusak/vim-hybrid-material'
@@ -22,6 +22,9 @@ Plug 'chriskempson/base16-vim'
 "Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 "Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
 "Plug 'w0ng/vim-hybrid'
-Plug 'micke/vim-hybrid'
+" Plug 'micke/vim-hybrid'
 Plug 'GutenYe/json5.vim'
 Plug 'MunifTanjim/nui.nvim' "ui for nvim, dependency for ChatGPT
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'rafi/awesome-vim-colorschemes'
+
