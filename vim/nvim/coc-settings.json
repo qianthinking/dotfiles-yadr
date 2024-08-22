@@ -23,7 +23,7 @@
   "python.analysis.typeCheckingMode": "basic",
   "yaml.maxItemsComputed": 20000,
   "pyright.inlayHints.functionReturnTypes": true,
-  "pyright.inlayHints.variableTypes": true,
+  "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.parameterTypes": false,
   "languageserver": {
     "golang": {
