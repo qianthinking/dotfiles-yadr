@@ -133,3 +133,28 @@ endif
 
 set undofile
 let g:snipMate = { 'snippet_version' : 1 }
+
+
+function! TogglePyrightInlayHints()
+    " Check if we are in a Python file
+    if &filetype == 'python'
+        " Get the current value of the setting
+        let current_value = get(g:coc_user_config, 'pyright.inlayHints.variableTypes', 0)
+
+        " Toggle the value
+        let new_value = !current_value
+
+        " Update the setting dynamically
+        call coc#config('pyright.inlayHints.variableTypes', new_value)
+
+        " Notify the user
+        echo 'pyright.inlayHints.variableTypes set to ' . (new_value ? 'enabled' : 'disabled')
+    else
+        echo 'Not a Python file. Toggle aborted.'
+    endif
+endfunction
+
+" Create a command to toggle it
+command! TogglePyrightInlayHints call TogglePyrightInlayHints()
+nnoremap <silent> th :call TogglePyrightInlayHints()<CR>
+
