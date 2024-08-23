@@ -1,4 +1,9 @@
 require("trouble").setup {
 }
 
-vim.cmd.colorscheme "hybrid_reverse"
+-- Activate the custom theme
+vim.cmd("colorscheme nordfox")
+
+
+vim.g.lightline = { colorscheme = "nordfox" }
+

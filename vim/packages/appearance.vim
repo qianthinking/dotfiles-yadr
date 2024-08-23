@@ -25,6 +25,7 @@ Plug 'itchyny/lightline.vim'
 " Plug 'micke/vim-hybrid'
 Plug 'GutenYe/json5.vim'
 Plug 'MunifTanjim/nui.nvim' "ui for nvim, dependency for ChatGPT
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'rafi/awesome-vim-colorschemes'
-
+"Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'rafi/awesome-vim-colorschemes' "less treesitter support
+Plug 'EdenEast/nightfox.nvim'
+Plug 'vague2k/vague.nvim'
