@@ -138,14 +138,19 @@ let g:snipMate = { 'snippet_version' : 1 }
 function! TogglePyrightInlayHints()
     " Check if we are in a Python file
     if &filetype == 'python'
-        " Get the current value of the setting
-        let current_value = get(g:coc_user_config, 'pyright.inlayHints.variableTypes', 0)
+        " We will force toggle by tracking the state using a global variable
+        if !exists('g:pyright_inlayHints_state')
+            let g:pyright_inlayHints_state = v:false
+        endif
 
-        " Toggle the value
-        let new_value = !current_value
+        " Toggle the state
+        let g:pyright_inlayHints_state = !g:pyright_inlayHints_state
+
+        " Set the new value explicitly based on the toggled state
+        let new_value = g:pyright_inlayHints_state
 
         " Update the setting dynamically
-        call coc#config('pyright.inlayHints.variableTypes', new_value)
+        call CocAction('updateConfig', 'pyright.inlayHints.variableTypes', new_value)
 
         " Notify the user
         echo 'pyright.inlayHints.variableTypes set to ' . (new_value ? 'enabled' : 'disabled')
