@@ -38,4 +38,30 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to the nearest text object
+      move = {
+        enable = true,
+        set_jumps = true, -- Save jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer", -- Go to the start of the next function
+          ["]]"] = "@class.outer",    -- Go to the start of the next class
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer", -- Go to the end of the next function
+          ["]["] = "@class.outer",    -- Go to the end of the next class
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer", -- Go to the start of the previous function
+          ["[["] = "@class.outer",    -- Go to the start of the previous class
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer", -- Go to the end of the previous function
+          ["[]"] = "@class.outer",    -- Go to the end of the previous class
+        },
+      },
+    },
+  },
 }

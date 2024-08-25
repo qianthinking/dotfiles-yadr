@@ -6,4 +6,3 @@ vim.cmd("colorscheme nordfox")
 
 
 vim.g.lightline = { colorscheme = "nordfox" }
-
