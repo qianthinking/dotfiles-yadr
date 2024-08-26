@@ -1,62 +1,44 @@
 {
-  "continue_code": {
-    "type": "chat",
-    "opts": {
-      "template": "continue and complete the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output rest of code!\n\nExisting code:\n{{input}}",
-      "strategy": "append",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
-    }
-  },
   "complete_code": {
     "type": "chat",
     "opts": {
-      "template": "Rewrite and complete the following code according #TODO or #FIXIT comments. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nCompleted Code:\n",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "template": "Continue and complete the following code. \nKeep same indent. Don't explain, don't including leading information. Don't include language label like ```python```, just output rest of code!\n\nExisting code:\n{{input}}\n\n",
+      "strategy": "append"
     }
   },
-  "optimize_code": {
+  "implement_code": {
     "type": "chat",
     "opts": {
-      "template": "Optimize the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "template": "Implement the missing code according #TODO or #FIXIT comments. \nKeep same indent. Don't explain, don't including leading information. Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\n",
+      "strategy": "replace"
     }
   },
-  "split_string": {
+  "refactor_code": {
     "type": "chat",
     "opts": {
-      "template": "Split long string exceed 120 length in the following code into multi lines less 120, like 'abc' into (\n'a'\n'b'\n'c'\n), make each line not too short ASAP. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nUpdated Code:\n",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "template": "Optimize the following code, make it more clean and efficient with best practice. Follow design patterns and principles, DRY, KISS, SOLID, etc. Split it into functions if necessary.\nKeep same indent. Don't explain, don't including leading information. Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\n",
+      "strategy": "replace"
     }
   },
   "fix_bugs": {
     "type": "chat",
     "opts": {
-      "template": "Fix bugs of the following code. \nKeep same indent. Don't explain, Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\nOptimized Code:\n",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "template": "Fix bugs of the following code. \nKeep same indent. Don't explain, don't including leading information. Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\n",
+      "strategy": "replace"
+    }
+  },
+  "comments": {
+    "type": "chat",
+    "opts": {
+      "template": "Add necessary comments to the following code, including function description, parameter description, return description, and any other necessary comments. \nKeep same indent. Don't explain, don't including leading information. Don't include language label like ```python```, just output completed code!\n\nExisting code:\n{{input}}\n\n",
+      "strategy": "replace"
     }
   },
   "grammar_correction": {
     "type": "chat",
     "opts": {
       "template": "Correct this to standard {{lang}}:\n\n{{input}}",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "strategy": "replace"
     },
     "args": {
       "lang": {
@@ -70,11 +52,7 @@
     "type": "chat",
     "opts": {
       "template": "Translate this into {{lang}}:\n\n{{input}}",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview",
-        "temperature": 0.3
-      }
+      "strategy": "replace"
     },
     "args": {
       "lang": {
@@ -88,45 +66,28 @@
     "type": "chat",
     "opts": {
       "template": "Extract the main keywords from the following text.\n\n{{input}}",
-      "strategy": "replace",
-      "params": {
-        "model": "gpt-4-1106-preview",
-        "temperature": 0.5,
-        "frequency_penalty": 0.8
-      }
+      "strategy": "replace"
     }
   },
   "docstring": {
     "type": "chat",
     "opts": {
-      "template": "# An elaborate, high quality docstring for the above function:\n# Writing a good docstring\n\nThis is an example of writing a really good docstring that follows a best practice for the given language. Attention is paid to detailing things like\n* parameter and return types (if applicable)\n* any errors that might be raised or returned, depending on the language\n\nI received the following code:\n\n```{{filetype}}\n{{input}}\n```\n\nThe code with a really good docstring added is below:\n\n```{{filetype}}",
-      "strategy": "edit",
-      "params": {
-        "model": "gpt-4-1106-preview",
-        "stop": [
-          "```"
-        ]
-      }
+      "template": "# An elaborate, high quality docstring for the above function:\n# Writing a good docstring\n\nThis is an example of writing a really good docstring that follows a best practice for the given language. Attention is paid to detailing things like\n* parameter and return types (if applicable)\n* any errors that might be raised or returned, depending on the language\n\nI received the following code:\n\n```{{filetype}}\n{{input}}\n```\n\nDon't explain, Don't include language label like ```{{filetype}}```, don't including leading information, just output completed code directly with good docstring, which can be used in code.\n",
+      "strategy": "edit"
     }
   },
   "add_tests": {
     "type": "chat",
     "opts": {
       "template": "Implement tests for the following code. Don't include language label like ```python```, just output completed code!\n\nCode:\n{{input}}\n\nTests:\n",
-      "strategy": "append",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "strategy": "append"
     }
   },
   "summarize": {
     "type": "chat",
     "opts": {
       "template": "Summarize the following text.\n\nText:\n\"\"\"\n{{input}}\n\"\"\"\n\nSummary:",
-      "strategy": "edit",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "strategy": "display"
     }
   },
   "explain_code": {
@@ -134,10 +95,7 @@
     "opts": {
       "title": " Explain Code",
       "template": "Briefly explain the following code:\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nUse markdown format.\nplease answer me in Chinese.\n",
-      "strategy": "display",
-      "params": {
-        "model": "gpt-4-1106-preview"
-      }
+      "strategy": "display"
     }
   },
   "code_readability_analysis": {
@@ -146,7 +104,6 @@
       "strategy": "quick_fix",
       "template": "{{input}}",
       "params": {
-        "model": "gpt-4-1106-preview",
         "max_tokens": 2048,
         "messages": [
           {

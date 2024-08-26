@@ -44,6 +44,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mtdl9/vim-log-highlighting'
 Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
 Plug 'nvim-lua/plenary.nvim' "async for nvim, dependency for ChatGPT
-Plug 'jackMort/ChatGPT.nvim'
+Plug 'qianthinking/ChatGPT.nvim'
 "Plug 'dpayne/CodeGPT.nvim'
 Plug 'folke/trouble.nvim'
