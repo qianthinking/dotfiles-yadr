@@ -1,5 +1,7 @@
 require("chatgpt").setup({
-  actions_paths = { "~/.vim/chatgpt/actions.json" },
+  actions_paths = {
+    vim.fn.expand("$VIM_CHATGPT_ACTIONS_PATH")
+  },
   edit_with_instructions = {
      diff = true,
      keymaps = {
@@ -9,7 +11,7 @@ require("chatgpt").setup({
        toggle_settings = "<C-o>",
        toggle_help = "<C-h>",
        cycle_windows = "<Tab>",
-       use_output_as_input = "<C-i>",
+       use_output_as_input = "<C-a>",
      },
   },
   openai_params = {
@@ -31,7 +33,7 @@ require("chatgpt").setup({
     n = 1,
   },
 })
-vim.api.nvim_set_keymap("v", "<leader>cga", ":ChatGPTRun add_tests<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("v", "<leader>cgt", ":ChatGPTRun add_tests<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>cgc", ":ChatGPTRun complete_code<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>cgi", ":ChatGPTRun implement_code<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>cgr", ":ChatGPTRun refactor_code<CR>", {noremap = true, silent = true})
