@@ -3,9 +3,11 @@ local buf_name = require('tabby.feature.buf_name')
 
 -- Retrieve the TabLineSel background dynamically
 local tabline_sel_bg = vim.api.nvim_get_hl_by_name('TabLineSel', true).background
+local tabline_bg = vim.api.nvim_get_hl_by_name('TabLine', true).background
 
 -- Define custom highlight groups for modified symbol and current window
-vim.api.nvim_set_hl(0, 'TabbyModified', { fg = '#dd5f5f', bold = true, bg = tabline_sel_bg })  -- Color for modified buffers
+vim.api.nvim_set_hl(0, 'TabbyModifiedSel', { fg = '#dd5f5f', bold = true, bg = tabline_sel_bg })  -- Color for modified buffers
+vim.api.nvim_set_hl(0, 'TabbyModified', { fg = '#dd5f5f', bold = true, bg = tabline_sel })  -- Color for modified buffers
 -- Define the TabbyCurrentWin highlight group using the retrieved background
 vim.api.nvim_set_hl(0, 'TabbyCurrentWin', { fg = '#ffffff', bold = true, bg = tabline_sel_bg })
 vim.api.nvim_set_hl(0, 'TabbyCurrentWinSep', { fg = '#ffff00', bold = true, bg = tabline_sel_bg })
@@ -48,7 +50,11 @@ require('tabby').setup({
 
           -- Add indicator if buffer is modified (unsaved changes)
           if api.get_buf_is_changed(bufid) then
-            name = name .. '%#TabbyModified#*%#TabLineSel#'  -- Append * with highlight for modified buffers
+            if tabid == current_tab then
+              name = name .. '%#TabbyModifiedSel#*%#TabLineSel#'  -- Append * with highlight for modified buffers
+            else
+              name = name .. '%#TabbyModified#*%#TabLine#'  -- Append * with highlight for modified buffers
+            end
           end
 
           -- Highlight the current window only if this tab is active
