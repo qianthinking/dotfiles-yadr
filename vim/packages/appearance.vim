@@ -5,7 +5,14 @@
 "Plug 'skwp/vim-colors-solarized'
 "Plug 'lifepillar/vim-solarized8'
 " statusline
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+Plug 'nanozuki/tabby.nvim'
+
+
 " highlight .tmux.conf not compatible with new tmux
 "Plug 'jby/tmux.vim'
 " theme like solarized

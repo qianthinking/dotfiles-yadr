@@ -5,4 +5,4 @@ require("trouble").setup {
 vim.cmd("colorscheme nordfox")
 
 
-vim.g.lightline = { colorscheme = "nordfox" }
+-- vim.g.lightline = { colorscheme = "nordfox" }
