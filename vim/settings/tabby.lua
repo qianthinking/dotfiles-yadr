@@ -1,6 +1,5 @@
-vim.o.showtabline = 2
 require('tabby').setup({
-  preset = 'active_tab_with_wins',
+  preset = 'tab_only',
   option = {
     theme = {
       fill = 'TabLineFill',       -- tabline background
@@ -17,3 +16,4 @@ require('tabby').setup({
     },
   },
 })
+vim.api.nvim_set_keymap("n", "<leader>gn", "<Cmd>Tabby jump_to_tab<CR>", {noremap = true, silent = true})
