@@ -1,3 +1,5 @@
+vim.o.showtabline = 2
+
 local api = require('tabby.module.api')
 local buf_name = require('tabby.feature.buf_name')
 
