@@ -6,6 +6,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'skwp/greplace.vim'
 "try vim-sneak
 Plug 'phaazon/hop.nvim'
+Plug 'folke/flash.nvim'
 "Plug 'easymotion/vim-easymotion'
 " use easymotion for now
 "Plug "justinmk/vim-sneak"
