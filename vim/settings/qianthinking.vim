@@ -134,31 +134,3 @@ set undofile
 let g:snipMate = { 'snippet_version' : 1 }
 
 
-function! TogglePyrightInlayHints()
-    " Check if we are in a Python file
-    if &filetype == 'python'
-        " We will force toggle by tracking the state using a global variable
-        if !exists('g:pyright_inlayHints_state')
-            let g:pyright_inlayHints_state = v:false
-        endif
-
-        " Toggle the state
-        let g:pyright_inlayHints_state = !g:pyright_inlayHints_state
-
-        " Set the new value explicitly based on the toggled state
-        let new_value = g:pyright_inlayHints_state
-
-        " Update the setting dynamically
-        call CocAction('updateConfig', 'pyright.inlayHints.variableTypes', new_value)
-
-        " Notify the user
-        echo 'pyright.inlayHints.variableTypes set to ' . (new_value ? 'enabled' : 'disabled')
-    else
-        echo 'Not a Python file. Toggle aborted.'
-    endif
-endfunction
-
-" Create a command to toggle it
-command! TogglePyrightInlayHints call TogglePyrightInlayHints()
-nnoremap <silent> th :call TogglePyrightInlayHints()<CR>
-
