@@ -11,21 +11,29 @@ function! GetVisual()
 endfunction
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <silent> K <cmd>Telescope grep_string<cr>
-
-"grep the current word using K (mnemonic Kurrent)
-" nnoremap <silent> K :Ag <cword><CR>
-"nnoremap <silent> K :Ag <cword><CR>
-
-"grep visual selection
-vnoremap K :<C-U>execute "Ag " . GetVisual()<CR>
-
-"grep current word up to the next exclamation point using ,K
-nnoremap ,K viwf!:<C-U>execute "Ag " . GetVisual()<CR>
+"nnoremap <silent> ff <cmd>Telescope find_files<cr>
+"nnoremap <silent> fg <cmd>Telescope live_grep<cr>
+"nnoremap <silent> fb <cmd>Telescope buffers<cr>
+"nnoremap <silent> fh <cmd>Telescope help_tags<cr>
+"
+"nnoremap <silent> ft <cmd>Telescope coc type_definitions<CR>
+"nnoremap <silent> fi <cmd>Telescope coc implementations<CR>
+"nnoremap <silent> fr <cmd>Telescope coc references<CR>
+"nnoremap <silent> fd <cmd>Telescope coc definitions<CR>
+"nnoremap <silent> fs <cmd>Telescope coc document_symbols<CR>
+"nnoremap <silent> fw <cmd>Telescope coc workspace_symbols<CR>
+"
+"nnoremap <silent> K <cmd>Telescope grep_string<CR>
+"
+""grep the current word using K (mnemonic Kurrent)
+"" nnoremap <silent> K :Ag <cword><CR>
+""nnoremap <silent> K :Ag <cword><CR>
+"
+""grep visual selection
+"vnoremap K :<C-U>execute "Ag " . GetVisual()<CR>
+"
+""grep current word up to the next exclamation point using ,K
+"nnoremap ,K viwf!:<C-U>execute "Ag " . GetVisual()<CR>
 
 "grep for 'def foo'
 nnoremap <silent> ,gd :Ag 'def <cword>'<CR>

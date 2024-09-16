@@ -88,3 +88,40 @@ require("telescope").setup({
 })
 
 require('telescope').load_extension('coc')
+
+local builtin = require('telescope.builtin')
+local telescope = require('telescope')
+
+-- Normal mode mappings
+vim.keymap.set('n', 'ff', builtin.find_files, { noremap = true, silent = true })
+vim.keymap.set('n', 'fg', builtin.live_grep, { noremap = true, silent = true })
+vim.keymap.set('n', 'fb', builtin.buffers, { noremap = true, silent = true })
+vim.keymap.set('n', 'fh', builtin.help_tags, { noremap = true, silent = true })
+
+-- CoC integration with Telescope for normal mode mappings
+local coc = telescope.extensions.coc
+vim.keymap.set('n', 'ft', coc.type_definitions, { noremap = true, silent = true })
+vim.keymap.set('n', 'fi', coc.implementations, { noremap = true, silent = true })
+vim.keymap.set('n', 'fr', coc.references, { noremap = true, silent = true })
+vim.keymap.set('n', 'fd', coc.definitions, { noremap = true, silent = true })
+vim.keymap.set('n', 'fs', coc.document_symbols, { noremap = true, silent = true })
+vim.keymap.set('n', 'fw', coc.workspace_symbols, { noremap = true, silent = true })
+
+-- Key binding for grep_string in normal mode
+vim.keymap.set('n', 'K', builtin.grep_string, { noremap = true, silent = true })
+
+-- Visual mode mapping to grep for the selected text
+vim.keymap.set('v', 'K', function()
+    -- Ensure the visual mode is properly registered before retrieving the selection
+    vim.cmd('normal! "vy')  -- Yank the current visual selection into register 'v'
+
+    local selection = vim.fn.getreg('v')
+
+    -- Ensure that the selection is non-empty
+    if selection and #selection > 0 then
+        -- Call Telescope grep_string with the selected text
+        builtin.grep_string({ search = selection })
+    else
+        print("No text selected.")
+    end
+end, { noremap = true, silent = true })

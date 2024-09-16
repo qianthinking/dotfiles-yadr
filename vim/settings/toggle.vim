@@ -66,6 +66,7 @@ endfunction
 " Create a command to toggle it
 command! TogglePyrightInlayVariableHints call TogglePyrightInlayVariableHints()
 command! TogglePyrightInlayParameterHints call TogglePyrightInlayParameterHints()
+let g:pyright_inlayVariableHints_state = v:true
 nnoremap <silent> tv :call TogglePyrightInlayVariableHints()<CR>
 nnoremap <silent> tp :call TogglePyrightInlayParameterHints()<CR>
 
