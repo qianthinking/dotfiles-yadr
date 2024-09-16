@@ -11,7 +11,6 @@ let g:coc_global_extensions = [
   \ 'coc-imselect',
   \ 'coc-snippets',
   \ 'coc-pyright',
-  \ 'coc-pairs',
   \ 'coc-git',
   \ 'coc-prettier',
   \ 'coc-yaml',
@@ -207,7 +206,7 @@ nmap <silent> gt :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gs :call CocAction('jumpDefinition', 'split')<CR>
 nmap <silent> gv :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gi <Plug>(coc-implementation) " conflict with go latest insert
 
 " default setting
 
