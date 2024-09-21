@@ -83,3 +83,5 @@ require('tabby').setup({
 
 -- Keymap for jumping to tabs
 vim.api.nvim_set_keymap("n", "<leader>gn", "<Cmd>Tabby jump_to_tab<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-h>", ":-tabmove<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-l>", ":+tabmove<CR>", { noremap = true })
