@@ -65,3 +65,14 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+-- Option+f to move to the next function start
+vim.api.nvim_set_keymap('n', '<A-f>', [[:lua require'nvim-treesitter.textobjects.move'.goto_next_start('@class.outer')<CR>]], { noremap = true, silent = true })
+
+-- Option+b to move to the previous function start
+vim.api.nvim_set_keymap('n', '<A-b>', [[:lua require'nvim-treesitter.textobjects.move'.goto_previous_start('@class.outer')<CR>]], { noremap = true, silent = true })
+--
+-- Option+f to move to the next function start
+vim.api.nvim_set_keymap('n', '<A-d>', [[:lua require'nvim-treesitter.textobjects.move'.goto_next_start('@function.outer')<CR>]], { noremap = true, silent = true })
+
+-- Option+b to move to the previous function start
+vim.api.nvim_set_keymap('n', '<A-u>', [[:lua require'nvim-treesitter.textobjects.move'.goto_previous_start('@function.outer')<CR>]], { noremap = true, silent = true })
