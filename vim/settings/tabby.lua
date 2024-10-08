@@ -45,8 +45,8 @@ require('tabby').setup({
           local bufid = api.get_win_buf(win)
           local name = buf_name.get(win)  -- Get the buffer name
 
-          -- Skip windows with 'NvimTree' in the name
-          if name:find('NvimTree') then
+          -- Skip windows with 'NvimTree' or 'CocTree' in the name
+          if name:find('NvimTree') or name:find('CocTree') then
             goto continue
           end
 
