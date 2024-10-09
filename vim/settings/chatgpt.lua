@@ -4,6 +4,7 @@ require("chatgpt").setup({
   },
   edit_with_instructions = {
      diff = true,
+     model = "chatgpt-4o-latest",
      keymaps = {
        close = "<C-c>",
        accept = "<C-y>",
@@ -15,7 +16,7 @@ require("chatgpt").setup({
      },
   },
   openai_params = {
-    model = "claude-3.5-sonnet",
+    model = "chatgpt-4o-latest",
     frequency_penalty = 0,
     presence_penalty = 0,
     max_tokens = 2000,
@@ -24,7 +25,7 @@ require("chatgpt").setup({
     n = 1,
   },
   openai_edit_params = {
-    model = "claude-3.5-sonnet",
+    model = "chatgpt-4o-latest",
     max_tokens = 2000,
     frequency_penalty = 0,
     presence_penalty = 0,
