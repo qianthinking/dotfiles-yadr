@@ -1,0 +1,90 @@
+#!/bin/bash
+
+base="$1"
+
+if [ "$base" = "alpha" ]; then
+    head="dev"
+elif [ "$base" = "main" ]; then
+    head="alpha"
+else
+    echo "Unknown base branch: $base"
+    exit 1
+fi
+
+echo "Base branch: $base"
+echo "Head branch: $head"
+
+echo "Fetching latest changes for base branch: $base"
+git fetch origin $base:$base
+
+log_output=$(git log --oneline ${base}..${head})
+
+echo "Changes between $base and $head:"
+echo "$log_output"
+
+if [ -z "$log_output" ]; then
+    echo "No changes between ${base} and ${head}. Exiting."
+    exit 0
+fi
+
+generate_content() {
+    local prompt=$(cat <<EOF
+please generate a one-line title and multi-line description for a GitHub Pull Request with the following info:
+
+${log_output}
+
+**Instruction**:
+- Extract and summarize only the key changes.
+- The **Title** should be no more than 12 words.
+- The **Description** must be in Markdown format, spanning multiple lines.
+- Ensure the output format is exactly as requested.
+
+**Output Format**:
+First line is the title, and the rest is the description in Markdown format.
+There should be no need to add labels like 'title' or 'description' in the output. Example:
+
+Role and Intent Refactor, Log Improvement, Language Handling Enhancement
+
+- Role and intent refactored.
+- Log improved.
+- Language handling enhanced.
+- Subject subquery now set to True in intent processing.
+EOF
+    )
+    
+    echo "$prompt"
+}
+
+content=$(chatgpt4 "$(generate_content)")
+
+title=$(echo "$content" | head -n 1)
+description=$(echo "$content" | tail -n +2)
+
+while true; do
+    echo "Generated Title: $title"
+    echo "Generated Description (Markdown format):"
+    echo "$description"
+    
+    read -p "Would you like to proceed? (y: continue, r: regenerate, q: quit) " choice
+    case "$choice" in
+        y)
+            echo "Creating PR..."
+            gh pr create --base "$base" --head "$head" --title "$title" --body "$description"
+            echo "Pull request created successfully."
+            break
+            ;;
+        r)
+            echo "Regenerating title and description..."
+            content=$(chatgpt4 "$(generate_content)")
+            title=$(echo "$content" | head -n 1)
+            description=$(echo "$content" | tail -n +2)
+            ;;
+        q)
+            echo "Exiting without creating PR."
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Please select y, r, or q."
+            ;;
+    esac
+done
