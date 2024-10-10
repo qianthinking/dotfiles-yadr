@@ -96,7 +96,13 @@ local telescope = require('telescope')
 vim.keymap.set('n', 'ff', builtin.find_files, { noremap = true, silent = true })
 vim.keymap.set('n', 'fg', builtin.live_grep, { noremap = true, silent = true })
 vim.keymap.set('n', 'fb', builtin.buffers, { noremap = true, silent = true })
-vim.keymap.set('n', 'fh', builtin.help_tags, { noremap = true, silent = true })
+vim.keymap.set('n', 'fh', function()
+    builtin.find_files({
+        hidden = true,  -- This option includes hidden files
+        no_ignore = true -- This option allows searching in files that are normally ignored
+    })
+end, { noremap = true, silent = true })
+vim.keymap.set('n', 'fp', builtin.help_tags, { noremap = true, silent = true })
 
 -- CoC integration with Telescope for normal mode mappings
 local coc = telescope.extensions.coc
@@ -110,6 +116,21 @@ vim.keymap.set('n', 'fw', coc.workspace_symbols, { noremap = true, silent = true
 -- Key binding for grep_string in normal mode
 vim.keymap.set('n', 'K', builtin.grep_string, { noremap = true, silent = true })
 
+-- Define a function to grep the word under the cursor, including hidden files
+local function grep_string_with_hidden()
+    local current_word = vim.fn.expand("<cword>")  -- Get the word under the cursor
+    builtin.grep_string({
+        search = current_word,                     -- Use the word directly
+        additional_args = function(opts)
+            return {"--hidden"}                     -- Include hidden files in search
+        end,
+        use_regex = false,                         -- Use literal search
+    })
+end
+
+-- Set the key binding for the custom grep function
+vim.keymap.set('n', '<leader>K', grep_string_with_hidden, { noremap = true, silent = true })
+
 -- Visual mode mapping to grep for the selected text
 vim.keymap.set('v', 'K', function()
     -- Ensure the visual mode is properly registered before retrieving the selection
@@ -121,6 +142,28 @@ vim.keymap.set('v', 'K', function()
     if selection and #selection > 0 then
         -- Call Telescope grep_string with the selected text
         builtin.grep_string({ search = selection })
+    else
+        print("No text selected.")
+    end
+end, { noremap = true, silent = true })
+--
+-- Visual mode mapping to grep for the selected text
+vim.keymap.set('v', '<leader>K', function()
+    -- Ensure the visual mode is properly registered before retrieving the selection
+    vim.cmd('normal! "vy')  -- Yank the current visual selection into register 'v'
+
+    local selection = vim.fn.getreg('v')
+
+    -- Ensure that the selection is non-empty
+    if selection and #selection > 0 then
+        -- Call Telescope grep_string with the selected text
+        builtin.grep_string({
+            search = selection,                     -- Use the word directly
+            additional_args = function(opts)
+                return {"--hidden"}                     -- Include hidden files in search
+            end,
+            use_regex = false,                         -- Use literal search
+        })
     else
         print("No text selected.")
     end
