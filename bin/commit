@@ -1,0 +1,24 @@
+#!/bin/bash
+
+while true; do
+    message=$(GIT_PAGER= git diff --cached | chatgpt -p commit)
+    # print message and prompt user input Yes/No/Regenerate to continue
+    echo -e "\n$message"
+
+    while true; do
+        read -p "Are sure to commit this message? (y/n/r) " -n 1 -r
+        echo
+
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            git commit -m "$message"
+            break 2
+        elif [[ $REPLY =~ ^[Nn]$ ]]; then
+            break 2
+        elif [[ $REPLY =~ ^[Rr]$ ]]; then
+            echo "Regenerating commit message..."
+            break
+        else
+            echo "Invalid input. Please use 'y' for Yes, 'n' for No, or 'r' for Regenerate."
+        fi
+    done
+done
