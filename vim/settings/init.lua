@@ -78,7 +78,7 @@ vim.api.nvim_set_keymap('n', 'ta', ':AddHoverType<CR>', { noremap = true, silent
 
 -- 处理变量赋值的函数
 function handle_variable_hover(hover_text)
-  -- 使用正则匹配提取类型注释部分，匹配类似 `chat: AdminChat` 或 `fixed: Literal[False]`
+  -- 使用正则匹配提取类型注释部分，匹配类似 `chat: ExampleType` 或 `fixed: Literal[False]`
   local type_annotation = hover_text:match(":%s*(.+)$") or
                           hover_text:match("type%s*:%s*(.+)$") or
                           hover_text:match("is a%s*(.+)$")
@@ -379,7 +379,7 @@ function simplify_type(type_str)
       return "tuple"
     end
   else
-    return type_str -- 例如 'AdminChat' 或简化后的 'list'
+    return type_str -- 例如 'ExampleType' 或简化后的 'list'
   end
 end
 
