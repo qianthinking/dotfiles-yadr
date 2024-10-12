@@ -8,8 +8,15 @@ require('flash').setup({
     }
   }
 })
-vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash" })
 
+-- vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump({
+--   search = {
+--     mode = function(str)
+--       return "\\<" .. str
+--     end,
+--   },
+-- }) end, { desc = "Flash" })
+--
 -- Normal, visual, and operator-pending mode mapping for Flash Treesitter
 vim.keymap.set({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
 
