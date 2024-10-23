@@ -106,9 +106,10 @@ vim.keymap.set('n', 'fp', builtin.help_tags, { noremap = true, silent = true })
 
 -- CoC integration with Telescope for normal mode mappings
 local coc = telescope.extensions.coc
+vim.keymap.set('n', 'fe', coc.diagnostics, { noremap = true, silent = true })
 vim.keymap.set('n', 'ft', coc.type_definitions, { noremap = true, silent = true })
 vim.keymap.set('n', 'fi', coc.implementations, { noremap = true, silent = true })
-vim.keymap.set('n', 'fr', coc.references, { noremap = true, silent = true })
+vim.keymap.set('n', 'fr', coc.references_used, { noremap = true, silent = true })
 vim.keymap.set('n', 'fd', coc.definitions, { noremap = true, silent = true })
 vim.keymap.set('n', 'fs', coc.document_symbols, { noremap = true, silent = true })
 vim.keymap.set('n', 'fw', coc.workspace_symbols, { noremap = true, silent = true })
