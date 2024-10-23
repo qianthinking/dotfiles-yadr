@@ -43,6 +43,7 @@ Plug 'ybian/smartim'
 "Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'tree-sitter-grammars/tree-sitter-markdown'
 Plug 'mtdl9/vim-log-highlighting'
 Plug 'github/copilot.vim', Cond(!exists('g:vscode'))
 Plug 'nvim-lua/plenary.nvim' "async for nvim, dependency for ChatGPT
