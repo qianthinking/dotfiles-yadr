@@ -187,11 +187,6 @@ require("nvim-tree").setup({
       error = "",
     }
   },
-  update_focused_file = {
-    enable = true,  -- 启用文件同步
-    update_cwd = true,  -- 切换文件时更新当前目录
-    ignore_list = {},  -- 可以配置忽略同步的文件
-  },
   open_on_tab = true,
   on_attach = on_attach
 })
