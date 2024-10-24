@@ -1,8 +1,8 @@
 "Plug 'scrooloose/nerdtree'
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
 Plug 'nvim-tree/nvim-tree.lua'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'ivalkeen/vim-ctrlp-tjump'

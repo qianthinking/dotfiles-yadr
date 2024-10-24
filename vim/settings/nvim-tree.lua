@@ -157,6 +157,8 @@ end
 
 -- OR setup with some options
 require("nvim-tree").setup({
+  disable_netrw = false,  -- 保留 netrw 插件，但不禁用其功能
+  hijack_netrw = true,    -- `nvim-tree` 会接管所有 netrw 的文件浏览操作
   sort_by = "case_sensitive",
   view = {
     width = 32,
@@ -174,6 +176,22 @@ require("nvim-tree").setup({
     },
     dotfiles = true
   },
+  diagnostics = {
+    enable = true,  -- 启用诊断信息显示
+    show_on_dirs = true,  -- 在目录上显示诊断信息
+    debounce_delay = 50,  -- 延迟更新诊断信息
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable = true,  -- 启用文件同步
+    update_cwd = true,  -- 切换文件时更新当前目录
+    ignore_list = {},  -- 可以配置忽略同步的文件
+  },
   open_on_tab = true,
   on_attach = on_attach
 })
@@ -185,4 +203,3 @@ end
 -- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 vim.api.nvim_set_keymap("n", "tn", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<C-\\>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})
-

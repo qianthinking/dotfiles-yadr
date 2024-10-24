@@ -15,6 +15,7 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-yaml',
   \ 'coc-solargraph',
+  \ 'coc-diagnostic',
   \ '@yaegassy/coc-tailwindcss3'
 \ ]
 "\ 'coc-tabnine',
