@@ -65,6 +65,11 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+vim.cmd('set foldmethod=expr')
+vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
+vim.cmd('set foldlevelstart=99')
+
 -- Option+f to move to the next function start
 vim.api.nvim_set_keymap('n', '<A-f>', [[:lua require'nvim-treesitter.textobjects.move'.goto_next_start('@class.outer')<CR>]], { noremap = true, silent = true })
 

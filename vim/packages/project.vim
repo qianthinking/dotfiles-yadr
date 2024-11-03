@@ -26,4 +26,5 @@ Plug 'JazzCore/ctrlp-cmatcher'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'untitled-ai/jupyter_ascending.vim'
 Plug 'vim-autoformat/vim-autoformat'
-
+Plug 'benlubas/molten-nvim'
+Plug 'kiyoon/jupynium.nvim'
