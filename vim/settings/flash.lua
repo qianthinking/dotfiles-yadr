@@ -4,7 +4,7 @@ require('flash').setup({
       enabled = true
     },
     char = {
-      enabled = false
+      enabled = true
     }
   }
 })

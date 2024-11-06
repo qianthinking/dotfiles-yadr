@@ -93,26 +93,26 @@ local builtin = require('telescope.builtin')
 local telescope = require('telescope')
 
 -- Normal mode mappings
-vim.keymap.set('n', 'ff', builtin.find_files, { noremap = true, silent = true })
-vim.keymap.set('n', 'fg', builtin.live_grep, { noremap = true, silent = true })
-vim.keymap.set('n', 'fb', builtin.buffers, { noremap = true, silent = true })
-vim.keymap.set('n', 'fh', function()
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fh', function()
     builtin.find_files({
         hidden = true,  -- This option includes hidden files
         no_ignore = true -- This option allows searching in files that are normally ignored
     })
 end, { noremap = true, silent = true })
-vim.keymap.set('n', 'fp', builtin.help_tags, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fp', builtin.help_tags, { noremap = true, silent = true })
 
 -- CoC integration with Telescope for normal mode mappings
 local coc = telescope.extensions.coc
-vim.keymap.set('n', 'fe', coc.diagnostics, { noremap = true, silent = true })
-vim.keymap.set('n', 'ft', coc.type_definitions, { noremap = true, silent = true })
-vim.keymap.set('n', 'fi', coc.implementations, { noremap = true, silent = true })
-vim.keymap.set('n', 'fr', coc.references, { noremap = true, silent = true })
-vim.keymap.set('n', 'fd', coc.definitions, { noremap = true, silent = true })
-vim.keymap.set('n', 'fs', coc.document_symbols, { noremap = true, silent = true })
-vim.keymap.set('n', 'fw', coc.workspace_symbols, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fe', coc.diagnostics, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ft', coc.type_definitions, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fi', coc.implementations, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fr', coc.references, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fd', coc.definitions, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fs', coc.document_symbols, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fw', coc.workspace_symbols, { noremap = true, silent = true })
 
 -- Key binding for grep_string in normal mode
 vim.keymap.set('n', 'K', builtin.grep_string, { noremap = true, silent = true })
