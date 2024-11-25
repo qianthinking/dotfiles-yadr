@@ -27,3 +27,11 @@ test -d "$HOMEBREW_PREFIX/opt/openssl@1.1" && export RUBY_CONFIGURE_OPTS="--with
 profile_script_start "end"
 export CC='ccache gcc'
 export CXX='ccache g++'
+
+# Define your own backward-kill-word-match function
+backward-kill-word-match() {
+    local WORDCHARS='[A-Za-z0-9_]'
+    zle backward-kill-word
+}
+zle -N backward-kill-word-match
+bindkey '^W' backward-kill-word-match
