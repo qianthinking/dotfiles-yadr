@@ -10,7 +10,7 @@
 Plug 'nvim-lualine/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
-Plug 'nanozuki/tabby.nvim'
+Plug 'nanozuki/tabby.nvim', { 'commit': 'c58d980' } "new commit will cause tab name missing
 
 
 " highlight .tmux.conf not compatible with new tmux
