@@ -59,7 +59,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent! call CocActionAsync('highlight')
 
 augroup mygroup
   autocmd!
@@ -116,7 +116,7 @@ xmap <leader>of <Plug>(coc-format-selected)
 vmap <leader>of <Plug>(coc-format-selected)
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
