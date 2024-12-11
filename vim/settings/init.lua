@@ -394,3 +394,11 @@ function convert_union_syntax(type_str)
     return type_str
   end
 end
+
+vim.g.copilot_workspace_folders = { vim.fn.getcwd() }
+-- vim.keymap.set(
+--   "i",                 -- 模式: 插入模式
+--   "<M-\\>",            -- 快捷键: Alt+反斜杠
+--   "copilot#Suggest()", -- 执行 Copilot 的 Suggest 函数
+--   { silent = true, expr = true } -- 配置: 静默模式，表达式
+-- )
