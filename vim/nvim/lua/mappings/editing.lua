@@ -45,3 +45,6 @@ map("i", "<C-l>", " <space>=><space>", { silent = true })
 map("c", "<C-l>", " <space>=><space>", { silent = true })
 map("i", "<C-g>", " <space>-><space>", { silent = true })
 map("c", "<C-g>", " <space>-><space>", { silent = true })
+
+-- clean up trailing whitespaces
+map("n", "<leader>cs", ":%s/\\s\\+$//e<CR>", { silent = true })
