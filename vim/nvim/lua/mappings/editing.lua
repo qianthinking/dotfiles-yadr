@@ -48,3 +48,10 @@ map("c", "<C-g>", " <space>-><space>", { silent = true })
 
 -- clean up trailing whitespaces
 map("n", "<leader>cs", ":%s/\\s\\+$//e<CR>", { silent = true })
+
+local builtin = require('telescope.builtin')
+
+map('n', '<leader>wd', builtin.diagnostics, { desc = "Workspace Diagnostics" })
+map('n', '<leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end, { desc = "File Diagnostics" })
+
+map("n", "<leader>lr", "<cmd>lua require('lint').try_lint()<CR>", { noremap = true, silent = true, desc = "Run Ruff Lint" })

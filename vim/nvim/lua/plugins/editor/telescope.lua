@@ -176,6 +176,7 @@ return {
             local telescope = require('telescope')
 
             telescope.load_extension('fzy_native')
+
             telescope.load_extension("live_grep_args")
 
             -- Telescope 的快捷键绑定

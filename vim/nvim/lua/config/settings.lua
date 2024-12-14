@@ -44,27 +44,27 @@ vim.opt.mouse = "a"
 vim.opt.completeopt = { "menu", "menuone", "preview" }
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function()
-        local last_pos = vim.fn.line("'\"")
-        if last_pos > 1 and last_pos <= vim.fn.line("$") then
-            vim.cmd("normal! g`\"")
-        end
-    end,
+  callback = function()
+    local last_pos = vim.fn.line("'\"")
+    if last_pos > 1 and last_pos <= vim.fn.line("$") then
+      vim.cmd("normal! g`\"")
+    end
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "BufReadPost", "FileType" }, {
-    pattern = { "python", "java" },
-    callback = function()
-        vim.opt_local.tabstop = 4
-        vim.opt_local.shiftwidth = 4
-        vim.opt_local.softtabstop = 4
-    end,
+  pattern = { "python", "java" },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave" }, {
-    callback = function(event)
-        vim.opt_local.cursorline = event.event == "WinEnter"
-    end,
+  callback = function(event)
+    vim.opt_local.cursorline = event.event == "WinEnter"
+  end,
 })
 
 vim.cmd([[
@@ -73,12 +73,12 @@ vim.cmd([[
 ]])
 
 if vim.env.TMUX then
-    vim.cmd([[
+  vim.cmd([[
         let &t_SI = "\ePtmux;\e\e]50;CursorShape=1\x07\e\\"
         let &t_EI = "\ePtmux;\e\e]50;CursorShape=0\x07\e\\"
     ]])
 else
-    vim.cmd([[
+  vim.cmd([[
         let &t_SI = "\e]50;CursorShape=1\x07"
         let &t_EI = "\e]50;CursorShape=0\x07"
     ]])
@@ -88,13 +88,18 @@ vim.opt.ttimeoutlen = 10
 vim.api.nvim_create_augroup("FastEscape", { clear = true })
 -- 动态调整 timeoutlen
 vim.api.nvim_create_autocmd("InsertEnter", {
-    callback = function()
-        vim.opt.timeoutlen = 200
-    end,
+  callback = function()
+    vim.opt.timeoutlen = 0
+  end,
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-    callback = function()
-        vim.opt.timeoutlen = 500
-    end,
+  callback = function()
+    vim.opt.timeoutlen = 1000
+  end,
 })
+
+vim.opt.cmdheight = 2
+vim.opt.updatetime = 200
+vim.opt.shortmess:append("c")
+vim.opt.signcolumn = "yes"

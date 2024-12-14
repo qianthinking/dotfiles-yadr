@@ -70,7 +70,6 @@ return {
           basedpyright = {
             analysis = {
               typeCheckingMode = "standard",
-              diagnosticMode = "workspace",
               autoSearchPaths = true,        -- 自动搜索库路径
               useLibraryCodeForTypes = true, -- 使用库代码推导类型
               inlayHints = {
@@ -83,7 +82,81 @@ return {
             },
           },
         },
-      }, { filetypes = { "python" } })
+      })
+
+
+      -- 配置 ruff LSP
+      lspconfig.ruff.setup({
+        on_attach = function(client, bufnr)
+          vim.keymap.set("n", "<leader>qf", function()
+            local temp_file = vim.fn.tempname() -- 创建临时文件
+
+            -- 获取当前缓冲区内容
+            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+            -- 写入临时文件
+            local file = io.open(temp_file, "w")
+            for _, line in ipairs(lines) do
+              file:write(line .. "\n")
+            end
+            file:close()
+
+            -- 静默执行 ruff 修复临时文件
+            vim.fn.system(string.format("ruff check --fix %s", temp_file))
+
+            -- 读取修复后的内容并更新缓冲区
+            local repaired_file = io.open(temp_file, "r")
+            if repaired_file then
+              local repaired_lines = {}
+              for line in repaired_file:lines() do
+                table.insert(repaired_lines, line)
+              end
+              repaired_file:close()
+              vim.api.nvim_buf_set_lines(0, 0, -1, false, repaired_lines)
+            end
+
+            -- 删除临时文件
+            vim.fn.delete(temp_file)
+          end, { noremap = true, silent = true })
+        end,
+
+
+        init_options = {
+          settings = {
+            args = { "--fix" }, -- 启用 Ruff 的修复模式
+          },
+        },
+      })
+
+      vim.api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+          vim.diagnostic.open_float(nil, {
+            focusable = false, -- 浮动窗口不可交互
+            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+            border = "rounded", -- 窗口边框样式
+            source = "always", -- 显示诊断来源
+            prefix = " ",
+          })
+        end,
+      })
+    end,
+  },
+  {
+    "glepnir/lspsaga.nvim",
+    event = "BufRead",
+    config = function()
+      require("lspsaga").setup({
+        code_action = {
+          enable = true,
+          keys = {
+            quit = "<Esc>",
+            exec = "<CR>",
+          },
+        },
+        --[[ symbols_in_winbar = { ]]
+        --[[   enable = false, ]]
+        --[[ }, ]]
+      })
     end,
   },
   {
@@ -165,15 +238,33 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           -- ["<C-space>"] = cmp.mapping.complete(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<Tab>"] = nil,
-          ["<S-Tab>"] = nil
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            -- 判断 Copilot 提示是否可见
+            local copilot = require("copilot.suggestion")
+            print(copilot.is_visible())
+            if copilot.is_visible() then
+              copilot.accept() -- 如果 Copilot 提示框可见，接受建议
+            elseif cmp.visible() then
+              cmp.select_next_item() -- 如果 nvim-cmp 补全框可见，选择下一个补全项
+            else
+              print("fallback")
+              fallback() -- 否则插入普通 Tab
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item() -- 如果补全框可见，选择上一个补全项
+            else
+              fallback() -- 否则插入普通 Shift+Tab
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
         }, {
-          { name = "buffer" },
-          { name = "path" },
-        }),
+            { name = "buffer" },
+            { name = "path" },
+          }),
       })
 
       cmp.setup.cmdline(":", {
