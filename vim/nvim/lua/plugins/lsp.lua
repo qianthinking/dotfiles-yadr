@@ -28,7 +28,7 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         callback = function(event)
-          local opts = { buffer = event.buf }
+          local opts = { buffer = event.buf, silent = true }
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -37,10 +37,27 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set({ "n", "x" }, "<leader>of", function()
-            vim.lsp.buf.format({ async = true })
-          end, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>of", function()
+              -- Format the entire file
+              vim.lsp.buf.format({ async = true })
+          end, opts)
+
+          -- Visual mode range formatting or full file formatting
+          vim.keymap.set("x", "<leader>of", function()
+            -- Get the selected range
+            local start_row, start_col = unpack(vim.api.nvim_buf_get_mark(0, "<"))
+            local end_row, end_col = unpack(vim.api.nvim_buf_get_mark(0, ">"))
+
+            -- Use `vim.lsp.buf.format` with a custom range if `range_formatting` is unavailable
+            vim.lsp.buf.format({
+              async = true,
+              range = {
+                ["start"] = { line = start_row - 1, character = start_col },
+                ["end"] = { line = end_row - 1, character = end_col },
+              },
+            })
+          end, opts)
         end,
       })
 

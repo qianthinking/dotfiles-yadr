@@ -84,21 +84,21 @@ else
     ]])
 end
 
-vim.opt.ttimeoutlen = 10
-vim.opt.timeoutlen = 200
-vim.api.nvim_create_augroup("FastEscape", { clear = true })
+vim.opt.ttimeoutlen = 20
+-- vim.api.nvim_create_augroup("FastEscape", { clear = true })
+
 -- 动态调整 timeoutlen
---[[ vim.api.nvim_create_autocmd("InsertEnter", { ]]
---[[   callback = function() ]]
---[[     vim.opt.timeoutlen = 0 ]]
---[[   end, ]]
---[[ }) ]]
---[[]]
---[[ vim.api.nvim_create_autocmd("InsertLeave", { ]]
---[[   callback = function() ]]
---[[     vim.opt.timeoutlen = 200 ]]
---[[   end, ]]
---[[ }) ]]
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = function()
+    vim.opt.timeoutlen = 0
+  end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  callback = function()
+    vim.opt.timeoutlen = 1000
+  end,
+})
 
 vim.opt.cmdheight = 2
 vim.opt.updatetime = 200
