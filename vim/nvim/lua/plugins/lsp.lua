@@ -39,10 +39,9 @@ return {
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<leader>of", function()
-              -- Format the entire file
-              vim.lsp.buf.format({ async = true })
+            -- Format the entire file
+            vim.lsp.buf.format({ async = true })
           end, opts)
-
           -- Visual mode range formatting or full file formatting
           vim.keymap.set("x", "<leader>of", function()
             -- Get the selected range
@@ -58,6 +57,13 @@ return {
               },
             })
           end, opts)
+
+          vim.keymap.set("n", "<leader>cp", function()
+            vim.lsp.buf.code_action({
+              apply = true, -- Automatically apply fixes
+            })
+          end, opts)
+
         end,
       })
 
@@ -86,6 +92,7 @@ return {
         settings = {
           basedpyright = {
             analysis = {
+              autoImportCompletions = true,
               typeCheckingMode = "standard",
               autoSearchPaths = true,        -- 自动搜索库路径
               useLibraryCodeForTypes = true, -- 使用库代码推导类型
@@ -105,6 +112,7 @@ return {
       -- 配置 ruff LSP
       lspconfig.ruff.setup({
         on_attach = function(client, bufnr)
+          -- 键绑定：修复整个文件
           vim.keymap.set("n", "<leader>qf", function()
             local temp_file = vim.fn.tempname() -- 创建临时文件
 
@@ -118,10 +126,10 @@ return {
             end
             file:close()
 
-            -- 静默执行 ruff 修复临时文件
+            -- 执行 ruff 修复临时文件
             vim.fn.system(string.format("ruff check --fix %s", temp_file))
 
-            -- 读取修复后的内容并更新缓冲区
+            -- 读取修复后的内容
             local repaired_file = io.open(temp_file, "r")
             if repaired_file then
               local repaired_lines = {}
@@ -134,15 +142,9 @@ return {
 
             -- 删除临时文件
             vim.fn.delete(temp_file)
-          end, { noremap = true, silent = true })
+          end, { noremap = true, silent = true, buffer = bufnr })
+
         end,
-
-
-        init_options = {
-          settings = {
-            args = { "--fix" }, -- 启用 Ruff 的修复模式
-          },
-        },
       })
 
       vim.api.nvim_create_autocmd("CursorHold", {
@@ -170,9 +172,9 @@ return {
             exec = "<CR>",
           },
         },
-        --[[ symbols_in_winbar = { ]]
-        --[[   enable = false, ]]
-        --[[ }, ]]
+        symbol_in_winbar = {
+          enable = false,
+        },
       })
     end,
   },

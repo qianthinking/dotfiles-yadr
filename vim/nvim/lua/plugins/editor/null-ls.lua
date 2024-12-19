@@ -20,31 +20,14 @@ return {
       null_ls.setup({
         debug = true, -- 开启调试
         sources = {
-          null_ls.builtins.formatting.black.with({
-            extra_args = function()
-              local config = find_config("pyproject.toml")
-              -- print("Black Config File: ", vim.inspect(config))
-              return config and { "--config", config } or {}
-            end,
-          }),
-          null_ls.builtins.formatting.prettier.with({
-            extra_args = function()
-              local config = find_config(".prettierrc")
-              -- print("Prettier Config File: ", vim.inspect(config))
-              return config and { "--config", config } or {}
-            end,
-          }),
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.isort,
+          null_ls.builtins.code_actions.refactoring,
+
+          --[[ null_ls.builtins.diagnostics.ruff, -- Ruff for linting ]]
+          --[[ null_ls.builtins.code_actions.ruff, -- Ruff for auto-fixing ]]
         },
-        --[[ on_attach = function(client, bufnr) ]]
-        --[[   if client.supports_method("textDocument/formatting") then ]]
-        --[[     vim.api.nvim_create_autocmd("BufWritePre", { ]]
-        --[[       buffer = bufnr, ]]
-        --[[       callback = function() ]]
-        --[[         vim.lsp.buf.format({ bufnr = bufnr }) ]]
-        --[[       end, ]]
-        --[[     }) ]]
-        --[[   end ]]
-        --[[ end, ]]
       })
     end,
   },

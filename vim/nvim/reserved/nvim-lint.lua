@@ -34,14 +34,6 @@ return {
       lint.linters_by_ft = {
         python = { "ruff" },
       }
-      vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
-        pattern = "*.py",
-        callback = function()
-            local file_path = vim.fn.expand("%:p")
-            require("lint").linters.ruff.args = { "check", file_path, "--output-format", "json" }
-            require("lint").try_lint()
-        end,
-      })
       -- 显示诊断信息浮动窗口
       vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()

@@ -9,7 +9,7 @@ map("n", "tn", ":NvimTreeToggle<CR>", { silent = true })
 map("n", "tt", ":Telescope resume<CR>", { silent = true })
 
 -- Aeral
-map("n", "to", ":AerialToggle!<CR>", { silent = true })
+map("n", "to", ":Lspsaga outline<CR>", { silent = true })
 
 -- Keybinding to toggle inlay hints
 vim.keymap.set("n", "th", function() require("lsp-inlayhints").toggle() end, { silent = true })
