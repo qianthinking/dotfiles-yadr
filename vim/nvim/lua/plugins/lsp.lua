@@ -88,6 +88,7 @@ return {
       })
 
       setup_server("ts_ls", { filetypes = { "javascript", "typescript" } })
+      setup_server("bashls", { filetypes = { "sh", "bash", "zsh" } })
       setup_server("basedpyright", {
         settings = {
           basedpyright = {
