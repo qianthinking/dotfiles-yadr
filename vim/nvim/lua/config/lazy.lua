@@ -38,7 +38,7 @@ require("lazy").setup({
     frequency = 604800, -- 每 7 天检查一次更新
   },
   change_detection = {
-    enabled = true, -- 启用配置变更检测
+    enabled = false, -- 启用配置变更检测
     notify = true,  -- 变更时弹出通知
   },
 })
