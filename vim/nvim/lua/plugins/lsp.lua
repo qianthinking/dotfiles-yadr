@@ -37,7 +37,7 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", opts)
           vim.keymap.set("n", "<leader>of", function()
             -- Format the entire file
             vim.lsp.buf.format({ async = true })
@@ -176,6 +176,9 @@ return {
         symbol_in_winbar = {
           enable = false,
         },
+        lightbulb = {
+          enabled = false,
+        }
       })
     end,
   },
