@@ -1,3 +1,41 @@
 {
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.noselect": false,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.detailField":"abbr",
+  "outline.autoPreview": true,
+  "outline.expandLevel": 0,
+  "suggest.snippetIndicator": "🌟",
+  "suggest.triggerCompletionWait": 50,
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "codeLens.enable": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.virtualText": true,
+  "python.pythonPath": "~/bin/vimpython",
+  "python.venvPath": "~/condalink/envs/neovim",
+  "python.formatting.provider": "black",
+  "pyright.organizeimports.provider": "ruff",
+  "pyright.enable": true,
+  "python.linting.enabled": true,
+  "python.linting.ruffEnabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "yaml.maxItemsComputed": 20000,
+  "pyright.inlayHints.functionReturnTypes": true,
+  "pyright.inlayHints.variableTypes": true,
+  "pyright.inlayHints.parameterTypes": false,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  },
+  "git.enableGutters": true,
+  "imselect.defaultInput": "com.apple.keylayout.ABC",
   "snippets.ultisnips.pythonPrompt": false
 }

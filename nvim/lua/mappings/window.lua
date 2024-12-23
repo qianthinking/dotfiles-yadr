@@ -120,3 +120,6 @@ end
 -- Window
 map("n", "Q", CloseWindowOrKillBuffer, { silent = true })
 
+-- Locate the file in the nvim-tree
+map("n", "<C-\\>", ":NvimTreeFindFile<CR>", {silent = true})
+

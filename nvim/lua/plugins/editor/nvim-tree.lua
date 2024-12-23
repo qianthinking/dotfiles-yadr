@@ -204,7 +204,6 @@ return {
       require("nvim-tree.api").tree.open()
     end
     -- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-    vim.api.nvim_set_keymap("n", "<C-\\>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})
   end,
 }
 
