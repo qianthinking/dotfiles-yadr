@@ -177,7 +177,8 @@ return {
           enable = false,
         },
         lightbulb = {
-          enabled = false,
+          enable = false,
+          enable_in_insert = false,
         }
       })
     end,
