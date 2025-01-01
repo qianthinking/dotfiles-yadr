@@ -1,7 +1,11 @@
 local map = vim.keymap.set
 
 -- indentLine
-map("n", "ti", ":IndentLinesToggle<CR>", { silent = true })
+map("n", "ti", function()
+  require("ibl").setup_buffer(0, {
+    enabled = not require("ibl.config").get_config(0).enabled,
+  })
+end, { silent = true })
 map("n", "tl", ":AnsiEsc<CR>", { silent = true })
 map("n", "tn", ":NvimTreeToggle<CR>", { silent = true })
 

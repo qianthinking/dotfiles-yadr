@@ -89,12 +89,33 @@ return {
         end,
     },
     {
-        "Yggdroot/indentLine",
-        event = "BufReadPre", -- Load before reading the buffer
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
         config = function()
-            vim.g.indentLine_enabled = 0
+            local highlight = {
+                "CursorColumn",
+                "Whitespace",
+            }
+            require("ibl").setup {
+                indent = {
+                    --[[ highlight = highlight, ]]
+                    char = "┊", -- 使用浅浅的虚线字符
+                },
+                whitespace = {
+                    --[[ highlight = highlight, ]]
+                    remove_blankline_trail = true,
+                },
+                scope = { enabled = false }, -- 禁用上下文范围高亮
+                enabled = false
+            }
+
+            -- 自定义虚线的高亮颜色
+            vim.cmd [[
+                highlight! link IndentBlanklineChar Comment
+            ]]
         end,
-    }, -- TODO: lukas-reineke/indent-blankline.nvim
+    },
     {
         "mtdl9/vim-log-highlighting",
         ft = { "log" },
@@ -124,14 +145,6 @@ return {
             vim.g.oscyank_silent = true
         end,
     },
-    {
-        "ntpeters/vim-better-whitespace",
-        event = "BufReadPost",
-        config = function()
-            vim.g.better_whitespace_enabled = 1
-            vim.g.strip_whitespace_on_save = 1
-        end,
-    }
     -- Plug 'Keithbsmiley/investigate.vim' "gK for doc
     -- Plug 'bogado/file-line' "open file with line number
 }
