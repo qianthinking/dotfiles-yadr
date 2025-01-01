@@ -5,6 +5,7 @@ return {
       local lint = require("lint")
 
       lint.linters.ruff = {
+        name = "Ruff",
         cmd = "ruff",
         stdin = false,
         parser = function(output, _)
@@ -34,6 +35,29 @@ return {
       lint.linters_by_ft = {
         python = { "ruff" },
       }
+
+      --[[ vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, { ]]
+      --[[   callback = function() ]]
+      --[[     -- 设置 Ruff 的参数并运行 linting 对于 Python 文件 ]]
+      --[[     if vim.bo.filetype == "python" then ]]
+      --[[       local file_path = vim.fn.expand("%:p") ]]
+      --[[       require("lint").linters.ruff.args = { "check", file_path, "--output-format", "json" } ]]
+      --[[     end ]]
+      --[[]]
+      --[[     -- 运行通用 linting ]]
+      --[[     require("lint").try_lint() ]]
+      --[[]]
+      --[[   end, ]]
+      --[[ }) ]]
+
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
+        pattern = "*.py",
+        callback = function()
+            local file_path = vim.fn.expand("%:p")
+            require("lint").linters.ruff.args = { "check", file_path, "--output-format", "json" }
+            require("lint").try_lint()
+        end,
+      })
       -- 显示诊断信息浮动窗口
       vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()

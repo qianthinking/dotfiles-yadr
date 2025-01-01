@@ -12,3 +12,12 @@ map("n", ",cf", ':let @* = expand("%:~")<CR>', { silent = true })
 map("n", ",cr", ':let @* = expand("%")<CR>', { silent = true })
 map("n", ",cn", ':let @* = expand("%:t")<CR>', { silent = true })
 
+-- 跳转到下一个诊断
+map('n', '<leader>dn', function()
+  vim.diagnostic.goto_next()
+end, { silent = true, desc = "Go to next diagnostic" })
+
+-- 跳转到上一个诊断
+map('n', '<leader>dp', function()
+  vim.diagnostic.goto_prev()
+end, { silent = true, desc = "Go to previous diagnostic" })

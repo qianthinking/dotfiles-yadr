@@ -37,8 +37,8 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", opts)
-          vim.keymap.set("n", "<leader>of", function()
+          vim.keymap.set({"n", "v"}, "<leader>ca", ":Lspsaga code_action<CR>", opts)
+          vim.keymap.set({"n", "v"}, "<leader>of", function()
             -- Format the entire file
             vim.lsp.buf.format({ async = true })
           end, opts)
@@ -109,12 +109,44 @@ return {
         },
       })
 
+      local function quick_fix()
+        -- 获取当前行的诊断信息
+        local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+
+        -- 如果没有诊断信息，提示并返回
+        if #diagnostics == 0 then
+          vim.notify("No diagnostics found", vim.log.levels.INFO)
+          return
+        end
+
+        -- 使用 Lspsaga 的 code_action 功能
+        require('lspsaga.codeaction'):code_action()
+        -- 延迟一段时间后直接选择第一个选项
+        vim.defer_fn(function()
+          -- 获取当前窗口和缓冲区
+          local win = vim.api.nvim_get_current_win()
+          local buf = vim.api.nvim_win_get_buf(win)
+
+          -- 获取弹窗的内容
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+
+          -- 如果弹窗中有内容，选择第一个选项
+          if #lines > 0 then
+            -- 模拟按下回车键
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "m", true)
+          else
+            vim.notify("No code actions available", vim.log.levels.INFO)
+          end
+        end, 1000)
+      end
 
       -- 配置 ruff LSP
       lspconfig.ruff.setup({
         on_attach = function(client, bufnr)
+
+
           -- 键绑定：修复整个文件
-          vim.keymap.set("n", "<leader>qf", function()
+          vim.keymap.set("n", "<leader>qa", function()
             local temp_file = vim.fn.tempname() -- 创建临时文件
 
             -- 获取当前缓冲区内容
@@ -145,20 +177,13 @@ return {
             vim.fn.delete(temp_file)
           end, { noremap = true, silent = true, buffer = bufnr })
 
+          vim.keymap.set('n', '<leader>qf', function()
+            quick_fix()
+          end, { silent = true })
+
         end,
       })
 
-      vim.api.nvim_create_autocmd("CursorHold", {
-        callback = function()
-          vim.diagnostic.open_float(nil, {
-            focusable = false, -- 浮动窗口不可交互
-            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-            border = "rounded", -- 窗口边框样式
-            source = "always", -- 显示诊断来源
-            prefix = " ",
-          })
-        end,
-      })
     end,
   },
   {
