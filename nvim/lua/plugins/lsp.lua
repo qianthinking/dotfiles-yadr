@@ -127,12 +127,12 @@ return {
               pycodestyle = {
                 enabled = false,  -- 启用 pycodestyle
               },
+              pyflakes = {
+                enabled = false,  -- 启用 pyflakes
+              },
             },
           },
         },
-        on_attach = function(client, bufnr)
-          client.server_capabilities.diagnosticProvider = false
-        end,
       })
 
       local function quick_fix()
@@ -238,6 +238,28 @@ return {
           enable_in_insert = false,
         }
       })
+
+      local saga_codeaction = require 'lspsaga.codeaction'
+
+      -- 保存原始的 action_callback 函数
+      local original_action_callback = saga_codeaction.action_callback
+
+      -- 定义新的 action_callback 函数
+      function saga_codeaction:action_callback(tuples, enriched_ctx)
+        -- 在这里对 tuples 进行过滤
+        local filtered_tuples = {}
+        for _, tuple in ipairs(tuples) do
+          local action = tuple[2] -- 提取 action 部分
+          -- 过滤掉 pylsp_rope 的特定 actions
+          if not action.command or not (type(action.command) == "table" and string.match(action.command.command or "", "^pylsp_rope%.")) then
+            table.insert(filtered_tuples, tuple)
+          end
+        end
+
+        -- 调用原始的 action_callback 函数，传入过滤后的 tuples
+        original_action_callback(self, filtered_tuples, enriched_ctx)
+      end
+
     end,
   },
   {
