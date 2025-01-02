@@ -140,47 +140,43 @@ return {
         end, 1000)
       end
 
+      local function fix_all()
+        local temp_file = vim.fn.tempname() -- 创建临时文件
+
+        -- 获取当前缓冲区内容
+        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+        -- 写入临时文件
+        local file = io.open(temp_file, "w")
+        for _, line in ipairs(lines) do
+          file:write(line .. "\n")
+        end
+        file:close()
+
+        -- 执行 ruff 修复临时文件
+        vim.fn.system(string.format("ruff check --fix %s", temp_file))
+
+        -- 读取修复后的内容
+        local repaired_file = io.open(temp_file, "r")
+        if repaired_file then
+          local repaired_lines = {}
+          for line in repaired_file:lines() do
+            table.insert(repaired_lines, line)
+          end
+          repaired_file:close()
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, repaired_lines)
+        end
+
+        -- 删除临时文件
+        vim.fn.delete(temp_file)
+      end
+
       -- 配置 ruff LSP
       lspconfig.ruff.setup({
         on_attach = function(client, bufnr)
-
-
+          vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true })
           -- 键绑定：修复整个文件
-          vim.keymap.set("n", "<leader>qa", function()
-            local temp_file = vim.fn.tempname() -- 创建临时文件
-
-            -- 获取当前缓冲区内容
-            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-            -- 写入临时文件
-            local file = io.open(temp_file, "w")
-            for _, line in ipairs(lines) do
-              file:write(line .. "\n")
-            end
-            file:close()
-
-            -- 执行 ruff 修复临时文件
-            vim.fn.system(string.format("ruff check --fix %s", temp_file))
-
-            -- 读取修复后的内容
-            local repaired_file = io.open(temp_file, "r")
-            if repaired_file then
-              local repaired_lines = {}
-              for line in repaired_file:lines() do
-                table.insert(repaired_lines, line)
-              end
-              repaired_file:close()
-              vim.api.nvim_buf_set_lines(0, 0, -1, false, repaired_lines)
-            end
-
-            -- 删除临时文件
-            vim.fn.delete(temp_file)
-          end, { noremap = true, silent = true, buffer = bufnr })
-
-          vim.keymap.set('n', '<leader>qf', function()
-            quick_fix()
-          end, { silent = true })
-
+          vim.keymap.set("n", "<leader>qa", fix_all, { silent = true, buffer = bufnr })
         end,
       })
 
