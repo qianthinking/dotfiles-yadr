@@ -64,6 +64,9 @@ return {
             })
           end, opts)
 
+          vim.keymap.set('n', '<leader>cb', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+          vim.keymap.set('v', '<leader>cb', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+
         end,
       })
 
@@ -93,6 +96,7 @@ return {
         settings = {
           basedpyright = {
             analysis = {
+              diagnosticMode = "openFilesOnly",
               autoImportCompletions = true,
               typeCheckingMode = "standard",
               autoSearchPaths = true,        -- 自动搜索库路径
@@ -107,6 +111,7 @@ return {
             },
           },
         },
+        filetypes = { "python" }
       })
 
       local function quick_fix()
@@ -137,7 +142,7 @@ return {
           else
             vim.notify("No code actions available", vim.log.levels.INFO)
           end
-        end, 1000)
+        end, 500)
       end
 
       local function fix_all()
