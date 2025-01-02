@@ -58,6 +58,13 @@ return {
                 -- Debug: Print the selected entry value
                 print("Selected entry value: ", vim.inspect(selected_entry.value))
 
+                -- 如果是 code action 等不涉及文件打开的场景，调用默认行为
+                if not selected_entry.value or type(selected_entry.value) ~= "table" or not selected_entry.value.filename then
+                  print("Not a file entry, using default behavior.")
+                  actions.select_default(prompt_bufnr)  -- 调用默认行为
+                  return
+                end
+
                 actions.close(prompt_bufnr)
 
                 local file_to_open, line_nr, col_nr

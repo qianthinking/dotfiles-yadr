@@ -12,7 +12,7 @@ return {
 
       mason.setup()
       mason_lspconfig.setup({
-        ensure_installed = { "lua_ls", "basedpyright", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls", "gopls", "jdtls" },
+        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls", "gopls", "jdtls" },
         automatic_installation = true,
       })
 
@@ -64,8 +64,9 @@ return {
             })
           end, opts)
 
-          vim.keymap.set('n', '<leader>cb', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-          vim.keymap.set('v', '<leader>cb', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+          vim.keymap.set({"n", "v"}, "<leader>cb", function()
+            vim.lsp.buf.code_action()
+          end, opts)
 
         end,
       })
@@ -111,7 +112,27 @@ return {
             },
           },
         },
-        filetypes = { "python" }
+      })
+
+      setup_server("pylsp", {
+        settings = {
+          pylsp = {
+            plugins = {
+              rope = {
+                enabled = true,  -- 启用 pylsp-rope
+                rope_autoimport = {
+                  enabled = true,  -- 启用自动导入
+                },
+              },
+              pycodestyle = {
+                enabled = false,  -- 启用 pycodestyle
+              },
+            },
+          },
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.diagnosticProvider = false
+        end,
       })
 
       local function quick_fix()
@@ -179,13 +200,23 @@ return {
       -- 配置 ruff LSP
       lspconfig.ruff.setup({
         on_attach = function(client, bufnr)
-          vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true })
+          vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true, buffer = bufnr })
           -- 键绑定：修复整个文件
           vim.keymap.set("n", "<leader>qa", fix_all, { silent = true, buffer = bufnr })
         end,
       })
-
-    end,
+      vim.api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+          vim.diagnostic.open_float(nil, {
+            focusable = false, -- 浮动窗口不可交互
+            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+            border = "rounded", -- 窗口边框样式
+            source = "always", -- 显示诊断来源
+            prefix = " ",
+          })
+        end,
+      })
+ end,
   },
   {
     "glepnir/lspsaga.nvim",

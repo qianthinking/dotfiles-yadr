@@ -17,4 +17,4 @@ map("n", "to", ":Lspsaga outline<CR>", { silent = true })
 map("n", "ta", ":AvanteToggle<CR>", { silent = true })
 
 -- Keybinding to toggle inlay hints
-vim.keymap.set("n", "th", function() require("lsp-inlayhints").toggle() end, { silent = true })
+map("n", "th", function() require("lsp-inlayhints").toggle() end, { silent = true })
