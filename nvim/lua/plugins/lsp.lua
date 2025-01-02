@@ -36,7 +36,14 @@ return {
           vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>rn", function()
+              vim.lsp.buf.rename(nil, {
+                filter = function(client)
+                  -- 排除 pylsp
+                  return client.name ~= "pylsp"
+                end,
+              })
+          end, opts)
           vim.keymap.set({"n", "v"}, "<leader>of", function()
             -- Format the entire file
             vim.lsp.buf.format({ async = true })
@@ -122,17 +129,14 @@ return {
         settings = {
           pylsp = {
             plugins = {
-              rope = {
-                enabled = true,  -- 启用 pylsp-rope
-                rope_autoimport = {
-                  enabled = true,  -- 启用自动导入
-                },
-              },
               pycodestyle = {
                 enabled = false,  -- 启用 pycodestyle
               },
               pyflakes = {
                 enabled = false,  -- 启用 pyflakes
+              },
+              rope_autoimport = {
+                enabled = true,   -- 启用 rope_autoimport
               },
             },
           },
@@ -168,7 +172,7 @@ return {
           else
             vim.notify("No code actions available", vim.log.levels.INFO)
           end
-        end, 500)
+        end, 1000)
       end
 
       local function fix_all()
