@@ -37,7 +37,6 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set({"n", "v"}, "<leader>ca", ":Lspsaga code_action<CR>", opts)
           vim.keymap.set({"n", "v"}, "<leader>of", function()
             -- Format the entire file
             vim.lsp.buf.format({ async = true })
@@ -64,8 +63,13 @@ return {
             })
           end, opts)
 
-          vim.keymap.set({"n", "v"}, "<leader>cb", function()
-            vim.lsp.buf.code_action()
+          vim.keymap.set({"n", "v"}, "<leader>cr", function()
+            vim.lsp.buf.code_action({
+              filter = function(action)
+                return not (not action.command or not (type(action.command) == "table" and string.match(action.command.command or "", "^pylsp_rope%.")))
+              end,
+
+            })
           end, opts)
 
         end,
@@ -146,7 +150,8 @@ return {
         end
 
         -- 使用 Lspsaga 的 code_action 功能
-        require('lspsaga.codeaction'):code_action()
+        -- require('lspsaga.codeaction'):code_action()
+        saga_filtered_codeaction()
         -- 延迟一段时间后直接选择第一个选项
         vim.defer_fn(function()
           -- 获取当前窗口和缓冲区
@@ -244,22 +249,30 @@ return {
       -- 保存原始的 action_callback 函数
       local original_action_callback = saga_codeaction.action_callback
 
-      -- 定义新的 action_callback 函数
-      function saga_codeaction:action_callback(tuples, enriched_ctx)
-        -- 在这里对 tuples 进行过滤
-        local filtered_tuples = {}
-        for _, tuple in ipairs(tuples) do
-          local action = tuple[2] -- 提取 action 部分
-          -- 过滤掉 pylsp_rope 的特定 actions
-          if not action.command or not (type(action.command) == "table" and string.match(action.command.command or "", "^pylsp_rope%.")) then
-            table.insert(filtered_tuples, tuple)
-          end
-        end
+      -- 保存原始的 code_action 方法
+      local original_code_action = saga_codeaction.code_action
 
-        -- 调用原始的 action_callback 函数，传入过滤后的 tuples
-        original_action_callback(self, filtered_tuples, enriched_ctx)
+      -- 定义新的 code_action 方法
+      _G.saga_filtered_codeaction = function(opts)
+          function saga_codeaction:action_callback(tuples, enriched_ctx)
+            -- 在这里对 tuples 进行过滤
+            local filtered_tuples = {}
+            for _, tuple in ipairs(tuples) do
+              local action = tuple[2] -- 提取 action 部分
+              -- 过滤掉 pylsp_rope 的特定 actions
+              if not action.command or not (type(action.command) == "table" and string.match(action.command.command or "", "^pylsp_rope%.")) then
+                table.insert(filtered_tuples, tuple)
+              end
+            end
+
+            -- 调用原始的 action_callback 函数，传入过滤后的 tuples
+            original_action_callback(self, filtered_tuples, enriched_ctx)
+          end
+        -- 调用原始的 code_action 方法
+        original_code_action(saga_codeaction, opts)
       end
 
+      vim.keymap.set({"n", "v"}, "<leader>ca", saga_filtered_codeaction, { silent = true })
     end,
   },
   {
