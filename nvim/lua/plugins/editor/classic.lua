@@ -91,6 +91,7 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
+        event = "VeryLazy",
         opts = {},
         config = function()
             local highlight = {
@@ -109,11 +110,22 @@ return {
                 scope = { enabled = false }, -- 禁用上下文范围高亮
                 enabled = false
             }
-
-            -- 自定义虚线的高亮颜色
-            vim.cmd [[
-                highlight! link IndentBlanklineChar Comment
-            ]]
+        end,
+    },
+    {
+        "echasnovski/mini.trailspace",
+        version = '*',
+        event = "VeryLazy",
+        opts = {},
+        config = function()
+            require("mini.trailspace").setup {
+            }
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*",
+                callback = function()
+                    require('mini.trailspace').trim()
+                end,
+            })
         end,
     },
     {

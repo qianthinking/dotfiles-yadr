@@ -364,8 +364,9 @@ return {
             print(copilot.is_visible())
             if copilot.is_visible() then
               copilot.accept() -- 如果 Copilot 提示框可见，接受建议
-            elseif cmp.visible() then
-              cmp.select_next_item() -- 如果 nvim-cmp 补全框可见，选择下一个补全项
+            -- 注释这里，避免在 text之前用tab就是希望缩进，但会触发cmp的tab，导致不预期的选择
+            --[[ elseif cmp.visible() then ]]
+            --[[   cmp.select_next_item() -- 如果 nvim-cmp 补全框可见，选择下一个补全项 ]]
             else
               print("fallback")
               fallback() -- 否则插入普通 Tab
