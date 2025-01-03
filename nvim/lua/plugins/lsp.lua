@@ -24,6 +24,70 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
+      local function quick_fix()
+        -- 获取当前行的诊断信息
+        local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+
+        -- 如果没有诊断信息，提示并返回
+        if #diagnostics == 0 then
+          vim.notify("No diagnostics found", vim.log.levels.INFO)
+          return
+        end
+
+        -- 使用 Lspsaga 的 code_action 功能
+        -- require('lspsaga.codeaction'):code_action()
+        saga_filtered_codeaction()
+        -- 延迟一段时间后直接选择第一个选项
+        vim.defer_fn(function()
+          -- 获取当前窗口和缓冲区
+          local win = vim.api.nvim_get_current_win()
+          local buf = vim.api.nvim_win_get_buf(win)
+
+          -- 获取弹窗的内容
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+
+          -- 如果弹窗中有内容，选择第一个选项
+          if #lines > 0 then
+            -- 模拟按下回车键
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "m", true)
+          else
+            vim.notify("No code actions available", vim.log.levels.INFO)
+          end
+        end, 1000)
+      end
+
+      local function fix_all()
+        local temp_file = vim.fn.tempname() -- 创建临时文件
+
+        -- 获取当前缓冲区内容
+        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+        -- 写入临时文件
+        local file = io.open(temp_file, "w")
+        for _, line in ipairs(lines) do
+          file:write(line .. "\n")
+        end
+        file:close()
+
+        -- 执行 ruff 修复临时文件
+        vim.fn.system(string.format("ruff check --fix %s", temp_file))
+
+        -- 读取修复后的内容
+        local repaired_file = io.open(temp_file, "r")
+        if repaired_file then
+          local repaired_lines = {}
+          for line in repaired_file:lines() do
+            table.insert(repaired_lines, line)
+          end
+          repaired_file:close()
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, repaired_lines)
+        end
+
+        -- 删除临时文件
+        vim.fn.delete(temp_file)
+      end
+
+
       -- Autocommand for LSP-specific key mappings
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
@@ -78,6 +142,10 @@ return {
 
             })
           end, opts)
+
+          vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true, buffer = bufnr })
+          -- 键绑定：修复整个文件
+          vim.keymap.set("n", "<leader>qa", fix_all, { silent = true, buffer = bufnr })
 
         end,
       })
@@ -147,77 +215,6 @@ return {
         },
       })
 
-      local function quick_fix()
-        -- 获取当前行的诊断信息
-        local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
-
-        -- 如果没有诊断信息，提示并返回
-        if #diagnostics == 0 then
-          vim.notify("No diagnostics found", vim.log.levels.INFO)
-          return
-        end
-
-        -- 使用 Lspsaga 的 code_action 功能
-        -- require('lspsaga.codeaction'):code_action()
-        saga_filtered_codeaction()
-        -- 延迟一段时间后直接选择第一个选项
-        vim.defer_fn(function()
-          -- 获取当前窗口和缓冲区
-          local win = vim.api.nvim_get_current_win()
-          local buf = vim.api.nvim_win_get_buf(win)
-
-          -- 获取弹窗的内容
-          local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-
-          -- 如果弹窗中有内容，选择第一个选项
-          if #lines > 0 then
-            -- 模拟按下回车键
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "m", true)
-          else
-            vim.notify("No code actions available", vim.log.levels.INFO)
-          end
-        end, 1000)
-      end
-
-      local function fix_all()
-        local temp_file = vim.fn.tempname() -- 创建临时文件
-
-        -- 获取当前缓冲区内容
-        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-        -- 写入临时文件
-        local file = io.open(temp_file, "w")
-        for _, line in ipairs(lines) do
-          file:write(line .. "\n")
-        end
-        file:close()
-
-        -- 执行 ruff 修复临时文件
-        vim.fn.system(string.format("ruff check --fix %s", temp_file))
-
-        -- 读取修复后的内容
-        local repaired_file = io.open(temp_file, "r")
-        if repaired_file then
-          local repaired_lines = {}
-          for line in repaired_file:lines() do
-            table.insert(repaired_lines, line)
-          end
-          repaired_file:close()
-          vim.api.nvim_buf_set_lines(0, 0, -1, false, repaired_lines)
-        end
-
-        -- 删除临时文件
-        vim.fn.delete(temp_file)
-      end
-
-      -- 配置 ruff LSP
-      lspconfig.ruff.setup({
-        on_attach = function(client, bufnr)
-          vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true, buffer = bufnr })
-          -- 键绑定：修复整个文件
-          vim.keymap.set("n", "<leader>qa", fix_all, { silent = true, buffer = bufnr })
-        end,
-      })
       vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
           vim.diagnostic.open_float(nil, {
