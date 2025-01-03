@@ -138,6 +138,10 @@ return {
               rope_autoimport = {
                 enabled = true,   -- 启用 rope_autoimport
               },
+              mccabe = {
+                enabled = true,  -- 启用 mccabe
+                threshold = 8,  -- 设置阈值
+              }
             },
           },
         },
