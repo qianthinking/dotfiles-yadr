@@ -12,10 +12,30 @@ return {
 
       mason.setup()
       mason_lspconfig.setup({
-        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls", "gopls", "jdtls" },
+        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls" },
         automatic_installation = true,
       })
 
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        callback = function()
+          local mason_registry = require("mason-registry")
+          if not mason_registry.is_installed("gopls") then
+            vim.cmd("MasonInstall gopls")
+          end
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "java",
+        callback = function()
+          local mason_registry = require("mason-registry")
+          if not mason_registry.is_installed("jdtls") then
+            vim.cmd("MasonInstall jdtls")
+          end
+          lspconfig.jdtls.setup({})
+        end,
+      })
 
       -- Default capabilities for cmp integration
       local capabilities = vim.tbl_deep_extend(
