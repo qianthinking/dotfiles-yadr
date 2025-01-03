@@ -1,7 +1,6 @@
 return {
     {
         "nvim-telescope/telescope.nvim",
-        version = "*", -- 安装最新稳定版本
         dependencies = {
             "nvim-lua/plenary.nvim",                -- 必须依赖
             "nvim-telescope/telescope-fzy-native.nvim", -- 模糊匹配性能提升

@@ -2,6 +2,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        verson = "0.9.3",
         event = { "BufReadPost", "BufNewFile" },
         config = function()
             require'nvim-treesitter.configs'.setup {
@@ -32,6 +33,7 @@ return {
                   },
               },
 
+              fold = { enable = true },
               indent = { enable = true },
               highlight = {
                 enable = true,
