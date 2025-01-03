@@ -51,20 +51,20 @@ return {
             }) end, { desc = "Toggle Flash Search" })
 
             -- 定义 ;w 映射，仅匹配单词
-            vim.keymap.set({ "n", "x", "o" }, ";w", function() require("flash").jump({
-              pattern = ".", -- initialize pattern with any char
-              search = {
-                mode = function(pattern)
-                  -- 去除模式开头的点
-                  if pattern:sub(1, 1) == "." then
-                    pattern = pattern:sub(2)
-                  end
-                  -- 匹配单独的单词
-                  return ([[\<%s\w*\>]]):format(pattern), ([[\<%s]]):format(pattern)
-                end,
-              },
-              jump = { pos = "range" },
-            }) end, { desc = "Toggle Flash Search for Words" })
+            --[[ vim.keymap.set({ "n", "x", "o" }, ";w", function() require("flash").jump({ ]]
+            --[[   pattern = ".", -- initialize pattern with any char ]]
+            --[[   search = { ]]
+            --[[     mode = function(pattern) ]]
+            --[[       -- 去除模式开头的点 ]]
+            --[[       if pattern:sub(1, 1) == "." then ]]
+            --[[         pattern = pattern:sub(2) ]]
+            --[[       end ]]
+            --[[       -- 匹配单独的单词 ]]
+            --[[       return ([[\<%s\w*\>]]):format(pattern), ([[\<%s]]):format(pattern) ]]
+            --[[     end, ]]
+            --[[   }, ]]
+            --[[   jump = { pos = "range" }, ]]
+            --[[ }) end, { desc = "Toggle Flash Search for Words" }) ]]
 
 
             -- -- Define ;W mapping for words and dot-separated word sequences
