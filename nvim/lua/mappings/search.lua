@@ -21,3 +21,17 @@ end, { silent = true, desc = "Go to next diagnostic" })
 map('n', '<leader>dp', function()
   vim.diagnostic.goto_prev()
 end, { silent = true, desc = "Go to previous diagnostic" })
+
+-- 跳转到下一个错误
+map('n', '<leader>en', function()
+  vim.diagnostic.goto_next({
+    severity = { min = vim.diagnostic.severity.ERROR, max = vim.diagnostic.severity.ERROR }
+  })
+end, { silent = true, desc = "Go to next error" })
+
+-- 跳转到上一个错误
+map('n', '<leader>ep', function()
+  vim.diagnostic.goto_prev({
+    severity = { min = vim.diagnostic.severity.ERROR, max = vim.diagnostic.severity.ERROR }
+  })
+end, { silent = true, desc = "Go to previous error" })
