@@ -229,10 +229,16 @@ return {
               mccabe = {
                 enabled = true,  -- 启用 mccabe
                 threshold = 8,  -- 设置阈值
+              },
+              jedi_references = {
+                enabled = false,  -- 禁用 jedi_references，避免与basedpyright冲突
               }
             },
           },
         },
+      })
+
+      lspconfig.ruff.setup({
       })
 
       vim.api.nvim_create_autocmd("CursorHold", {
