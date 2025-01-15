@@ -196,6 +196,11 @@ return {
         }
       },
       open_on_tab = true,
+      actions = {
+        open_file = {
+          resize_window = false,
+        },
+      },
       on_attach = on_attach
     })
 
