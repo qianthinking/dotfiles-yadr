@@ -128,6 +128,38 @@ return {
             end
 
             local lga_actions = require("telescope-live-grep-args.actions")
+
+
+local function safe_quote_with_params(opts)
+  opts = opts or {}
+  return function(prompt_bufnr)
+    -- 获取当前输入内容
+    local prompt = action_state.get_current_line()
+
+    -- 分离查询和参数部分
+    local query, params = prompt:match('^(.*%S)%s*(.*)$')
+    if not query then
+      query = prompt
+      params = ""
+    end
+
+    -- 检查查询部分是否已经被引号包围
+    local is_quoted = query:match('^%b""') or query:match("^%b''")
+
+    -- 如果查询部分没有被引号包围，则添加双引号
+    if not is_quoted then
+      query = '"' .. query .. '"'
+    end
+
+    -- 重新组合查询和参数，并添加后缀
+    local new_prompt = query .. " " .. params .. (opts.postfix or "")
+
+    -- 设置新的 prompt 值
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    picker:reset_prompt(new_prompt)
+  end
+end
+
             require('telescope').setup({
                 defaults = {
                     vimgrep_arguments = search_args, -- 动态设置搜索工具
@@ -167,11 +199,12 @@ return {
                         override_file_sorter = true,
                     },
                     live_grep_args = {
+                      auto_quoting = false,
                       mappings = {
                         i = {
                           ["<C-k>"] = lga_actions.quote_prompt(),
-                          ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden " }),
-                          ["<C-g>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                          ["<C-h>"] = safe_quote_with_params({ postfix = " --hidden " }),
+                          ["<C-g>"] = safe_quote_with_params({ postfix = " --iglob " }),
                         },
                       },
                     },
@@ -209,32 +242,33 @@ return {
             vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { silent = true })
             local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
             vim.keymap.set("n", "<leader>fc", live_grep_args_shortcuts.grep_word_under_cursor)
+            vim.keymap.set("v", "<leader>fc", live_grep_args_shortcuts.grep_visual_selection)
 
 
-            local live_grep_args = require("telescope").extensions.live_grep_args
-            -- Visual mode mapping to grep for the selected text
-            vim.keymap.set('v', '<leader>fc', function()
-                -- Ensure the visual mode is properly registered before retrieving the selection
-                vim.cmd('normal! "vy')  -- Yank the current visual selection into register 'v'
-
-                local selection = vim.fn.getreg('v')
-
-                -- Ensure that the selection is non-empty
-                if selection and #selection > 0 then
-                    -- Quote the selection
-                    local quoted_selection = '"' .. selection:gsub('"', '\\"') .. '"'
-
-                    -- Use live_grep_args with the quoted text and -F parameter
-                    live_grep_args.live_grep_args({
-                        default_text = quoted_selection,
-                        additional_args = function()
-                            return { "-F" }
-                        end,
-                    })
-                else
-                    print("No text selected.")
-                end
-            end, { noremap = true, silent = true })
+            --[[ local live_grep_args = require("telescope").extensions.live_grep_args ]]
+            --[[ -- Visual mode mapping to grep for the selected text ]]
+            --[[ vim.keymap.set('v', '<leader>fc', function() ]]
+            --[[     -- Ensure the visual mode is properly registered before retrieving the selection ]]
+            --[[     vim.cmd('normal! "vy')  -- Yank the current visual selection into register 'v' ]]
+            --[[]]
+            --[[     local selection = vim.fn.getreg('v') ]]
+            --[[]]
+            --[[     -- Ensure that the selection is non-empty ]]
+            --[[     if selection and #selection > 0 then ]]
+            --[[         -- Quote the selection ]]
+            --[[         local quoted_selection = '"' .. selection:gsub('"', '\\"') .. '"' ]]
+            --[[]]
+            --[[         -- Use live_grep_args with the quoted text and -F parameter ]]
+            --[[         live_grep_args.live_grep_args({ ]]
+            --[[             default_text = quoted_selection, ]]
+            --[[             additional_args = function() ]]
+            --[[                 return { "-F" } ]]
+            --[[             end, ]]
+            --[[         }) ]]
+            --[[     else ]]
+            --[[         print("No text selected.") ]]
+            --[[     end ]]
+            --[[ end, { noremap = true, silent = true }) ]]
         end,
     },
 }
