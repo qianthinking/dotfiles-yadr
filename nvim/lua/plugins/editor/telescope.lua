@@ -127,38 +127,54 @@ return {
                 end
             end
 
+            local builtin = require('telescope.builtin')
+            local telescope = require('telescope')
+
+
             local lga_actions = require("telescope-live-grep-args.actions")
 
+            local function find_files_with_hidden(prompt_bufnr)
+                local current_picker = action_state.get_current_picker(prompt_bufnr)
+                local current_prompt = current_picker:_get_prompt()
 
-local function safe_quote_with_params(opts)
-  opts = opts or {}
-  return function(prompt_bufnr)
-    -- 获取当前输入内容
-    local prompt = action_state.get_current_line()
+                -- 直接调用 find_files 并启用 hidden 选项
+                builtin.find_files({
+                    hidden = true,
+                    no_ignore = true,
+                    prompt_title = "Find Files (including hidden)",
+                    default_text = current_prompt, -- 保留当前输入内容
+                })
+            end
 
-    -- 分离查询和参数部分
-    local query, params = prompt:match('^(.*%S)%s*(.*)$')
-    if not query then
-      query = prompt
-      params = ""
-    end
+            local function safe_quote_with_params(opts)
+              opts = opts or {}
+              return function(prompt_bufnr)
+                -- 获取当前输入内容
+                local prompt = action_state.get_current_line()
 
-    -- 检查查询部分是否已经被引号包围
-    local is_quoted = query:match('^%b""') or query:match("^%b''")
+                -- 分离查询和参数部分
+                local query, params = prompt:match('^(.*%S)%s*(.*)$')
+                if not query then
+                  query = prompt
+                  params = ""
+                end
 
-    -- 如果查询部分没有被引号包围，则添加双引号
-    if not is_quoted then
-      query = '"' .. query .. '"'
-    end
+                -- 检查查询部分是否已经被引号包围
+                local is_quoted = query:match('^%b""') or query:match("^%b''")
 
-    -- 重新组合查询和参数，并添加后缀
-    local new_prompt = query .. " " .. params .. (opts.postfix or "")
+                -- 如果查询部分没有被引号包围，则添加双引号
+                if not is_quoted then
+                  query = '"' .. query .. '"'
+                end
 
-    -- 设置新的 prompt 值
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    picker:reset_prompt(new_prompt)
-  end
-end
+                -- 重新组合查询和参数，并添加后缀
+                local new_prompt = query .. " " .. params .. (opts.postfix or "")
+
+                -- 设置新的 prompt 值
+                local picker = action_state.get_current_picker(prompt_bufnr)
+                picker:reset_prompt(new_prompt)
+              end
+            end
 
             require('telescope').setup({
                 defaults = {
@@ -166,6 +182,7 @@ end
                     mappings = {
                         i = {
                             ["<CR>"] = open_or_switch_to_file,
+                            ["<c-h>"] = find_files_with_hidden,
                         },
                     },
                     prompt_prefix = "🔍 ",
@@ -210,9 +227,6 @@ end
                     },
                 },
             })
-
-            local builtin = require('telescope.builtin')
-            local telescope = require('telescope')
 
             telescope.load_extension('fzy_native')
 
