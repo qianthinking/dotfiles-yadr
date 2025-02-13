@@ -1,0 +1,75 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": ", f g",
+    "command": "workbench.action.findInFiles",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": ", f f",
+    "command": "workbench.action.quickOpen",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "shift+q",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus && neovim.mode != 'insert'"
+  },
+  {
+    "key": "shift+l",
+    "command": "workbench.action.nextEditor",
+    "when": "(editorTextFocus && neovim.mode != 'insert') || (!editorTextFocus && !inputFocus && !textInputFocus)"
+  },
+  {
+    "key": "shift+cmd+]",
+    "command": "-workbench.action.nextEditor"
+  },
+  {
+    "key": "shift+h",
+    "command": "workbench.action.previousEditor",
+    "when": "(editorTextFocus && neovim.mode != 'insert') || (!editorTextFocus && !inputFocus && !textInputFocus)"
+  },
+  {
+    "key": "alt+cmd+left",
+    "command": "-workbench.action.previousEditor"
+  },
+  {
+    "key": "cmd+cmd+[",
+    "command": "-workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "extension.smartFocusBelow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "extension.smartFocusLeft",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "auxiliaryBarFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "extension.smartFocusRight",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "explorerViewletFocus || !editorTextFocus"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "!editorTextFocus"
+  }
+]
