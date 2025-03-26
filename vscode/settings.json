@@ -1,0 +1,32 @@
+{
+    "window.commandCenter": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "git.openRepositoryInParentFolders": "always",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "editor.fontFamily": "Monaco, 'Courier New', monospace",
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off"
+    },
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+            "path": "zsh",
+            "args": [
+                "-l"
+            ],
+            "icon": "terminal-bash"
+        }
+    },
+    "terminal.integrated.inheritEnv": false,
+    "window.zoomLevel": 1,
+    "workbench.colorTheme": "Atom One Dark",
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "editor.minimap.enabled": false
+}
