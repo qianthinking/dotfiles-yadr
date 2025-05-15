@@ -18,7 +18,8 @@ return {
                     keys = { "f", "F" },
                     -- jump = true, -- 启用跳转功能
                     -- autohide = true, -- 自动隐藏标签
-                  }
+                  },
+                  case_sensitive = false
                 }
             })
 

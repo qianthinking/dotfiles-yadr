@@ -7,16 +7,18 @@ return {
     opts = {
       -- add any opts here
       debug = true,
+      provider = "openai",
+      cursor_applying_provider = 'groq',
       openai = {
-        endpoint = "https://api.openai.com/v1",
-        model = "chatgpt-4o-latest",
+        endpoint = "https://fomo.qingchuai.com/openai/v1",
+        model = "gpt-4.1",
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0.1,
         max_tokens = 4096,
       },
       gemini = {
-        endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-        model = "gemini-exp-1206",
+        endpoint = "https://fomo.qingchuai.com/gemini",
+        model = "gemini-2.5-pro-preview-03-25",
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0.1,
         max_tokens = 4096,
@@ -24,7 +26,7 @@ return {
       dual_boost = {
         enabled = false,
         first_provider = "openai",
-        second_provider = "claude",
+        second_provider = "gemini",
         prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
         timeout = 60000, -- Timeout in milliseconds
       },
@@ -36,16 +38,41 @@ return {
       --[[   support_paste_from_clipboard = false, ]]
       --[[   minimize_diff = true, ]]
       --[[ }, ]]
+      behaviour = {
+        auto_suggestions = false, -- Experimental stage
+        auto_set_highlight_group = true,
+        auto_set_keymaps = true,
+        auto_apply_diff_after_generation = false,
+        support_paste_from_clipboard = false,
+        minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+        enable_token_counting = true, -- Whether to enable token counting. Default to true.
+        enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
+        enable_claude_text_editor_tool_mode = true, -- Whether to enable Claude Text Editor Tool Mode.
+      },
+      vendors = {
+        groq = { -- define groq provider
+          api_key_name = 'GROQ_API_KEY',
+          endpoint = 'https://api.groq.com/openai/v1/',
+          model = 'llama-3.3-70b-versatile',
+          temperature = 0.1,
+          max_completion_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
+          timeout = 30000, -- Timeout in milliseconds
+        },
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
+      "echasnovski/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "zbirenbaum/copilot.lua", -- for providers='copilot'
       {

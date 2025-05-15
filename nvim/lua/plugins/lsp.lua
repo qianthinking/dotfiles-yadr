@@ -12,7 +12,7 @@ return {
 
       mason.setup()
       mason_lspconfig.setup({
-        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls" },
+        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ruff", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls" },
         automatic_installation = true,
       })
 
@@ -238,8 +238,10 @@ return {
         },
       })
 
-      lspconfig.ruff.setup({
+      setup_server("ruff", {
       })
+      --[[ lspconfig.ruff.setup({ ]]
+      --[[ }) ]]
 
       vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
