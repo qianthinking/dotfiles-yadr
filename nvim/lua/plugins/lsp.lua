@@ -2,8 +2,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -12,7 +12,7 @@ return {
 
       mason.setup()
       mason_lspconfig.setup({
-        ensure_installed = { "lua_ls", "pylsp", "basedpyright", "ruff", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls" },
+        ensure_installed = { "lua_ls", "ruff", "ts_ls", "bashls", "jsonls", "html", "cssls", "yamlls", "dockerls", "vimls" },
         automatic_installation = true,
       })
 
@@ -114,18 +114,13 @@ return {
         callback = function(event)
           local opts = { buffer = event.buf, silent = true }
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>rn", function()
               vim.lsp.buf.rename(nil, {
-                filter = function(client)
-                  -- 排除 pylsp
-                  return client.name ~= "pylsp"
-                end,
+                --[[ filter = function(client) ]]
+                --[[   -- 排除 pylsp ]]
+                --[[   return client.name ~= "pylsp" ]]
+                --[[ end, ]]
               })
           end, opts)
           vim.keymap.set({"n", "v"}, "<leader>of", function()
@@ -189,54 +184,77 @@ return {
           },
         },
       })
-
-      setup_server("ts_ls", { filetypes = { "javascript", "typescript" } })
+      local inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+      setup_server("ts_ls", {
+        settings = {
+          typescript = {
+            inlayHints = inlayHints,
+          },
+          javascript = {
+            inlayHints = inlayHints,
+          },
+        },
+        filetypes = {
+          "javascript",
+          "typescript",
+          "vue",
+        },
+      })
       setup_server("bashls", { filetypes = { "sh", "bash", "zsh" } })
-      setup_server("basedpyright", {
-        settings = {
-          basedpyright = {
-            analysis = {
-              diagnosticMode = "openFilesOnly",
-              autoImportCompletions = true,
-              typeCheckingMode = "standard",
-              autoSearchPaths = true,        -- 自动搜索库路径
-              useLibraryCodeForTypes = true, -- 使用库代码推导类型
-              inlayHints = {
-                variableTypes = true,        -- 启用变量类型提示
-                functionReturnTypes = true,  -- 启用函数返回类型提示
-                parameterNames = true,       -- 启用参数名称提示
-                callArgumentNames = true,    -- 启用调用参数名称提示
-                genericTypes = true,         -- 启用泛型类型提示
-              },
-            },
-          },
-        },
-      })
-
-      setup_server("pylsp", {
-        settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                enabled = false,  -- 启用 pycodestyle
-              },
-              pyflakes = {
-                enabled = false,  -- 启用 pyflakes
-              },
-              rope_autoimport = {
-                enabled = true,   -- 启用 rope_autoimport
-              },
-              mccabe = {
-                enabled = true,  -- 启用 mccabe
-                threshold = 8,  -- 设置阈值
-              },
-              jedi_references = {
-                enabled = false,  -- 禁用 jedi_references，避免与basedpyright冲突
-              }
-            },
-          },
-        },
-      })
+      --[[ setup_server("basedpyright", { ]]
+      --[[   settings = { ]]
+      --[[     basedpyright = { ]]
+      --[[       analysis = { ]]
+      --[[         diagnosticMode = "openFilesOnly", ]]
+      --[[         autoImportCompletions = true, ]]
+      --[[         typeCheckingMode = "standard", ]]
+      --[[         autoSearchPaths = true,        -- 自动搜索库路径 ]]
+      --[[         useLibraryCodeForTypes = true, -- 使用库代码推导类型 ]]
+      --[[         inlayHints = { ]]
+      --[[           variableTypes = true,        -- 启用变量类型提示 ]]
+      --[[           functionReturnTypes = true,  -- 启用函数返回类型提示 ]]
+      --[[           parameterNames = true,       -- 启用参数名称提示 ]]
+      --[[           callArgumentNames = true,    -- 启用调用参数名称提示 ]]
+      --[[           genericTypes = true,         -- 启用泛型类型提示 ]]
+      --[[         }, ]]
+      --[[       }, ]]
+      --[[     }, ]]
+      --[[   }, ]]
+      --[[ }) ]]
+      --[[]]
+      --[[ setup_server("pylsp", { ]]
+      --[[   settings = { ]]
+      --[[     pylsp = { ]]
+      --[[       plugins = { ]]
+      --[[         pycodestyle = { ]]
+      --[[           enabled = false,  -- 启用 pycodestyle ]]
+      --[[         }, ]]
+      --[[         pyflakes = { ]]
+      --[[           enabled = false,  -- 启用 pyflakes ]]
+      --[[         }, ]]
+      --[[         rope_autoimport = { ]]
+      --[[           enabled = true,   -- 启用 rope_autoimport ]]
+      --[[         }, ]]
+      --[[         mccabe = { ]]
+      --[[           enabled = true,  -- 启用 mccabe ]]
+      --[[           threshold = 8,  -- 设置阈值 ]]
+      --[[         }, ]]
+      --[[         jedi_references = { ]]
+      --[[           enabled = false,  -- 禁用 jedi_references，避免与basedpyright冲突 ]]
+      --[[         } ]]
+      --[[       }, ]]
+      --[[     }, ]]
+      --[[   }, ]]
+      --[[ }) ]]
 
       setup_server("ruff", {
       })
@@ -255,6 +273,11 @@ return {
         end,
       })
  end,
+  },
+  {
+    "chrisgrieser/nvim-lsp-endhints",
+    event = "LspAttach",
+    opts = {}, -- required, even if empty
   },
   {
     "glepnir/lspsaga.nvim",
@@ -326,43 +349,6 @@ return {
   --   'stevearc/stickybuf.nvim',
   --   opts = {},
   -- },
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-    event = "LspAttach",
-    config = function()
-      require("lsp-inlayhints").setup({
-        inlay_hints = {
-          parameter_hints = {
-            show = true,
-            prefix = "<- ",
-            separator = ", ",
-          },
-          type_hints = {
-            show = true,
-            prefix = "",
-            separator = ", ",
-          },
-          labels_separator = "  ",
-          max_len_align = false,
-          max_len_align_padding = 1,
-          right_align = false,
-          right_align_padding = 7,
-          highlight = "Comment",
-        },
-        enabled_at_startup = true, -- Automatically enable hints on startup
-        debug_mode = false,        -- Disable debug mode for performance
-      })
-
-      -- Automatically attach inlay hints to LSP buffers
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          local bufnr = args.buf
-          require("lsp-inlayhints").on_attach(client, bufnr)
-        end,
-      })
-    end,
-  },
   {
     "williamboman/mason.nvim",
     config = true,

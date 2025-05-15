@@ -55,7 +55,7 @@ return {
                 local selected_entry = action_state.get_selected_entry()
 
                 -- Debug: Print the selected entry value
-                print("Selected entry value: ", vim.inspect(selected_entry.value))
+                -- print("Selected entry value: ", vim.inspect(selected_entry.value))
 
                 -- 如果是 code action 等不涉及文件打开的场景，调用默认行为
                 if not selected_entry.value or type(selected_entry.value) ~= "table" or not selected_entry.value.filename then
@@ -246,10 +246,10 @@ return {
             end, { noremap = true, silent = true })
             vim.keymap.set('n', '<leader>fp', builtin.help_tags, { noremap = true, silent = true })
             vim.keymap.set('n', '<leader>fe', builtin.diagnostics, { noremap = true, silent = true }) -- 显示所有诊断信息
-            vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, { noremap = true, silent = true }) -- 跳转到类型定义
-            vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, { noremap = true, silent = true }) -- 跳转到实现
-            vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { noremap = true, silent = true }) -- 查看引用
-            vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { noremap = true, silent = true }) -- 跳转到定义
+            vim.keymap.set('n', 'go', builtin.lsp_type_definitions, { noremap = true, silent = true }) -- 跳转到类型定义
+            vim.keymap.set('n', 'gi', builtin.lsp_implementations, { noremap = true, silent = true }) -- 跳转到实现
+            vim.keymap.set('n', 'gr', builtin.lsp_references, { noremap = true, silent = true }) -- 查看引用
+            vim.keymap.set('n', 'gd', builtin.lsp_definitions, { noremap = true, silent = true }) -- 跳转到定义
             vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { noremap = true, silent = true }) -- 显示当前文档的符号
             vim.keymap.set('n', '<leader>fw', builtin.lsp_dynamic_workspace_symbols, { noremap = true, silent = true }) -- 显示工作区符号
 
