@@ -141,4 +141,8 @@
     "command": "-cursorLineEnd",
     "when": "textInputFocus"
   },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  },
 ]

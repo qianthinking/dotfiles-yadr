@@ -22,11 +22,13 @@
     },
     "terminal.integrated.inheritEnv": false,
     "window.zoomLevel": 1,
-    "workbench.colorTheme": "Atom One Dark",
+    "workbench.colorTheme": "Default Dark Modern",
     "diffEditor.hideUnchangedRegions.enabled": true,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
     "workbench.iconTheme": "vscode-icons",
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 12,
+    "vsicons.dontShowNewVersionMessage": true
 }
