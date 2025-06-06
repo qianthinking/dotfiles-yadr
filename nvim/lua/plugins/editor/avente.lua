@@ -9,19 +9,35 @@ return {
       debug = true,
       provider = "openai",
       cursor_applying_provider = 'groq',
-      openai = {
-        endpoint = "https://fomo.qingchuai.com/openai/v1",
-        model = "gpt-4.1",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0.1,
-        max_tokens = 4096,
-      },
-      gemini = {
-        endpoint = "https://fomo.qingchuai.com/gemini",
-        model = "gemini-2.5-pro-preview-03-25",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0.1,
-        max_tokens = 4096,
+      providers = {
+        openai = {
+          endpoint = "https://fomo.qingchuai.com/openai/v1",
+          model = "gpt-4.1",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            max_tokens = 4096,
+            temperature = 0.1,
+          },
+        },
+        gemini = {
+          endpoint = "https://fomo.qingchuai.com/gemini",
+          model = "gemini-2.5-pro-preview-03-25",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            max_tokens = 4096,
+            temperature = 0.1,
+          },
+        },
+        groq = { -- define groq provider
+          api_key_name = 'GROQ_API_KEY',
+          endpoint = 'https://api.groq.com/openai/v1/',
+          model = 'llama-3.3-70b-versatile',
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            max_completion_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
+            temperature = 0.1,
+          },
+        },
       },
       dual_boost = {
         enabled = false,
@@ -48,16 +64,6 @@ return {
         enable_token_counting = true, -- Whether to enable token counting. Default to true.
         enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
         enable_claude_text_editor_tool_mode = true, -- Whether to enable Claude Text Editor Tool Mode.
-      },
-      vendors = {
-        groq = { -- define groq provider
-          api_key_name = 'GROQ_API_KEY',
-          endpoint = 'https://api.groq.com/openai/v1/',
-          model = 'llama-3.3-70b-versatile',
-          temperature = 0.1,
-          max_completion_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
-          timeout = 30000, -- Timeout in milliseconds
-        },
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
