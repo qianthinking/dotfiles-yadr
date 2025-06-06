@@ -48,6 +48,7 @@
 
   # log
   l = log --graph --date=short
+  lp = log -p --pretty=format:'%C(yellow)%h%C(reset) - %C(green)(%ar)%C(reset) %C(bold blue)<%an>%C(reset)%n%C(bold cyan)%B%C(reset)' --
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
@@ -65,7 +66,7 @@
   rc = rebase --continue            # continue rebase
   rs = rebase --skip                # skip rebase
   ra = rebase --abort                # abort rebase
-  
+
   # merge
   ra = merge --abort                # abort rebase
 
