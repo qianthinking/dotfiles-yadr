@@ -149,15 +149,6 @@ return {
             })
           end, opts)
 
-          vim.keymap.set({"n", "v"}, "<leader>cr", function()
-            vim.lsp.buf.code_action({
-              filter = function(action)
-                return not (not action.command or not (type(action.command) == "table" and string.match(action.command.command or "", "^pylsp_rope%.")))
-              end,
-
-            })
-          end, opts)
-
           vim.keymap.set('n', '<leader>qf', quick_fix, { silent = true, buffer = bufnr })
           -- 键绑定：修复整个文件
           vim.keymap.set("n", "<leader>qa", fix_all, { silent = true, buffer = bufnr })

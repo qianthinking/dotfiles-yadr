@@ -8,8 +8,10 @@ map("n", ",gf", ":vertical botright wincmd F<CR>", { silent = true })
 
 
 -- 文件路径相关快捷键
-map("n", ",cf", ':let @* = expand("%:~")<CR>', { silent = true })
-map("n", ",cr", ':let @* = expand("%")<CR>', { silent = true })
+map("n", ",cd", ':let @* = expand("%:h")<CR>', { silent = true })
+map("n", ",cf", ':let @* = expand("%:p")<CR>', { silent = true })
+map("n", ",ch", ':let @* = expand("%:~")<CR>', { silent = true })
+map("n", ",cr", ':let @* = expand("%:.")<CR>', { silent = true })
 map("n", ",cn", ':let @* = expand("%:t")<CR>', { silent = true })
 
 -- 跳转到下一个诊断
