@@ -41,6 +41,28 @@ return {
             'nvim-treesitter/nvim-treesitter', -- Often used with LSPs and for syntax highlighting.
         },
         config = function()
+            -- Variable to track the state of virtual text
+            local virtual_text_enabled = true
+
+            -- Keymap to toggle virtual text for diagnostics
+            vim.keymap.set('n', '<leader>dv', function()
+                if virtual_text_enabled then
+                    vim.diagnostic.config({ virtual_text = false })
+                    vim.notify("Virtual text disabled", vim.log.levels.INFO, { title = "Diagnostics" })
+                else
+                    vim.diagnostic.config({
+                        virtual_text = {
+                            severity = { min = vim.diagnostic.severity.ERROR },
+                            format = function(diagnostic)
+                                return diagnostic.message
+                            end,
+                        }
+                    })
+                    vim.notify("Virtual text enabled", vim.log.levels.INFO, { title = "Diagnostics" })
+                end
+                virtual_text_enabled = not virtual_text_enabled
+            end, { noremap = true, silent = false, desc = "Toggle diagnostic virtual text" })
+
             -- Define custom highlight groups once here.
             -- FIX: Moved DiagnosticVirtualTextError definition outside the format function.
             -- This highlight group applies to virtual text messages of ERROR severity.
