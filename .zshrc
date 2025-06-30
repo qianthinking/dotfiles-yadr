@@ -44,7 +44,9 @@ for config_file ($HOME/.yadr/zsh/*.zsh) profile_script_start "$config_file" && s
 profile_script_start "completion path"
 fpath=(~/.zsh/completion $fpath)
 
-source "${HOME}/.asdf/asdf.sh"
+export ASDF_DATA_DIR="${HOME}/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# source "${HOME}/.asdf/asdf.sh"
 fpath=(${ASDF_DIR}/completions $fpath)
 zstyle ':completion::complete:*' use-cache 1
 profile_script_start "completion init"
