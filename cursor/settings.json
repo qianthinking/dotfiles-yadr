@@ -23,5 +23,7 @@
     "terminal.integrated.inheritEnv": false,
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Atom One Dark",
-    "diffEditor.hideUnchangedRegions.enabled": true
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "cursor.composer.shouldAllowCustomModes": true
 }
