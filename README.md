@@ -1,3 +1,8 @@
+## Deprecated
+This repo is deprecated and no longer maintained. Please see [new repo](https://github.com/qianthinking/dotfiles)
+
+
+## Legacy README
      _     _           _
     | |   | |         | |
     | |___| |_____  __| | ____
