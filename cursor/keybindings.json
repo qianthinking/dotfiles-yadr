@@ -18,7 +18,7 @@
   {
     "key": "shift+l",
     "command": "workbench.action.nextEditor",
-    "when": "(editorTextFocus && neovim.mode != 'insert') || (!editorTextFocus && !inputFocus && !textInputFocus)"
+    "when": "editorTextFocus && neovim.mode != 'insert'"
   },
   {
     "key": "shift+cmd+]",
@@ -27,7 +27,7 @@
   {
     "key": "shift+h",
     "command": "workbench.action.previousEditor",
-    "when": "(editorTextFocus && neovim.mode != 'insert') || (!editorTextFocus && !inputFocus && !textInputFocus)"
+    "when": "editorTextFocus && neovim.mode != 'insert'"
   },
   {
     "key": "alt+cmd+left",
